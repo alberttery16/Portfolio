@@ -89,7 +89,7 @@ html, body {
 }
 
 .project-list {
-  display: flex;
+  display: center;
   flex-wrap: wrap;
   justify-content: center;
   gap: 40px;
