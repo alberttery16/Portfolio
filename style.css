@@ -60,7 +60,7 @@ html, body {
   text-shadow: 0 0 5px rgba(0,0,0,0.7);
 }
 
-/* Contenido inferior tras el hero */
+/* Contenido del video */
 .content {
   max-width: 900px;
   margin: 80px auto;
@@ -79,6 +79,71 @@ html, body {
 
 .section-text {
   margin-bottom: 40px;
+}
+
+/* Proyectos */
+.projects {
+  padding: 80px 20px;
+  background: #111;
+  color: #fff;
+}
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.project-card {
+  background: #1b1b1b;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 300px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+}
+
+.project-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.project-info {
+  padding: 20px;
+}
+
+.project-info h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #f85a16;
+}
+
+.project-info p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.project-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #f85a16;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.project-link:hover {
+  background: #ff7e3f;
 }
 
 /* Animación de entrada opcional */
