@@ -1,80 +1,38 @@
-/* Estilos generales */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #000;
-  color: #fff;
-}
-
-/* Hero con vídeo de fondo */
-.hero {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: black;
-  background: url('assets/video-poster.jpg') center center / cover no-repeat; /* fallback imagen */
-}
-
-/* Vídeo de fondo */
-.bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: 0;
-  /* Opcional: filtro para oscurecer video y que texto resalte */
-  filter: brightness(0.6);
-}
-
-/* Texto encima del vídeo */
-.overlay-text {
-  position: relative;
-  z-index: 1;
-  color: white;
-  padding: 0 20px;
-  max-width: 90%;
-}
-
-/* Títulos y párrafos */
-.overlay-text h1 {
-  font-size: 4rem;
-  margin: 0 0 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.overlay-text p {
-  font-size: 1.5rem;
-  margin: 0;
-  font-weight: 400;
-}
-
-/* Sección de contenido con scroll */
-.content {
-  max-width: 900px;
-  margin: 80px auto;
-  padding: 0 20px;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: #ddd;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.section-text {
-  margin-bottom: 40px;
-}
+  html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
+    .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .bg-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.6);
+    }
+    .overlay-text {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
+      max-width: 90%;
+    }
+    .overlay-text h1 {
+      font-size: 4rem;
+      margin-bottom: 0.5em;
+    }
+    .overlay-text p {
+      font-size: 1.5rem;
+      margin-top: 0;
+    }
