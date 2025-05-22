@@ -83,17 +83,17 @@ html, body {
 
 /* Proyectos */
 .projects {
-  text-align: center;
+   text-align: center;
   padding: 80px 20px;
-  background: #111;
-  color: #fff;
+   background: #111;
+   color: #fff;
 }
 
 .project-list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 40px;
+  flex-wrap: wrap;
+  gap: 2rem;
   margin-top: 40px;
 }
 
