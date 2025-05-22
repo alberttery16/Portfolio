@@ -1,38 +1,88 @@
-  html, body {
-      margin: 0; padding: 0; height: 100%;
-      font-family: Arial, sans-serif;
-      background: black;
-      color: white;
-    }
-    .hero {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .bg-video {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      object-fit: cover;
-      z-index: 0;
-      filter: brightness(0.6);
-    }
-    .overlay-text {
-      position: relative;
-      z-index: 1;
-      padding: 0 20px;
-      max-width: 90%;
-    }
-    .overlay-text h1 {
-      font-size: 4rem;
-      margin-bottom: 0.5em;
-    }
-    .overlay-text p {
-      font-size: 1.5rem;
-      margin-top: 0;
-    }
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* HERO: Sección de entrada con vídeo de fondo */
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: black;
+}
+
+/* Vídeo de fondo */
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.6); /* Opcional: oscurece para que el texto resalte */
+}
+
+/* Texto encima del vídeo */
+.overlay-text {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 20px;
+  max-width: 90%;
+  animation: fadeIn 2s ease-out;
+}
+
+.overlay-text h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.overlay-text p {
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+
+/* Contenido inferior tras el hero */
+.content {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.section-text {
+  margin-bottom: 40px;
+}
+
+/* Animación de entrada opcional */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
