@@ -1,74 +1,80 @@
-/* General */
+/* Estilos generales */
 body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0d0d0d;
-  color: white;
-  scroll-behavior: smooth;
+  background-color: #000;
+  color: #fff;
 }
 
-/* Hero Section */
+/* Hero con vídeo de fondo */
 .hero {
   position: relative;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-color: black;
+  background: url('assets/video-poster.jpg') center center / cover no-repeat; /* fallback imagen */
 }
 
+/* Vídeo de fondo */
 .bg-video {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: 0;
+  /* Opcional: filtro para oscurecer video y que texto resalte */
+  filter: brightness(0.6);
 }
 
+/* Texto encima del vídeo */
 .overlay-text {
   position: relative;
   z-index: 1;
+  color: white;
+  padding: 0 20px;
+  max-width: 90%;
 }
 
+/* Títulos y párrafos */
 .overlay-text h1 {
   font-size: 4rem;
-  margin: 0;
-  animation: fadeInDown 1.5s ease-in-out;
+  margin: 0 0 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 .overlay-text p {
   font-size: 1.5rem;
-  animation: fadeInUp 2s ease-in-out;
+  margin: 0;
+  font-weight: 400;
 }
 
-/* Content Section */
+/* Sección de contenido con scroll */
 .content {
-  padding: 5rem 2rem;
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ddd;
 }
 
 .section-title {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #fff;
 }
 
 .section-text {
-  font-size: 1.2rem;
-  line-height: 1.6;
+  margin-bottom: 40px;
 }
-
-/* Animaciones */
-@keyframes fadeInDown {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
