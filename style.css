@@ -203,31 +203,5 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Responsive para móvil */
-@media (max-width: 768px) {
-  body {
-    padding: 0 15px;
-  }
 
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-    padding: 0;
-  }
-
-  nav ul li {
-    text-align: center;
-  }
-
-  /* Ejemplo para que las secciones se ajusten */
-  section {
-    padding: 15px 0;
-  }
-
-  /* Ajuste de imágenes para móviles */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-}
 
