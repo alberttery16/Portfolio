@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert T Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+        }
+        header {
+            text-align: center;
+            padding: 100px 20px 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            z-index: -1;
+            pointer-events: none;
+        }
+        main {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border: 1px solid #00ffcc;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #00ffcc33;
+            transition: transform 0.3s ease;
+        }
+        section:hover {
+            transform: scale(1.02);
+        }
+        h2 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #00ffcc;
+        }
+        p {
+            color: #b2fff0;
+        }
+    </style>
+</head>
+<body>
+<canvas class="matrix-bg"></canvas>
+<header>
+    Bienvenido a mi universo digital
+</header>
+<main>
+    <section>
+        <h2>Sobre mí</h2>
+        <p>Desarrollador web con pasión por los efectos visuales y la estética cinematográfica.</p>
+    </section>
+    <section>
+        <h2>Proyectos</h2>
+        <p>- Gestor de citas para peluquerías<br>- Videojuego Tower Defense<br>- Webs con temática hacker y tuning</p>
+    </section>
+    <section>
+        <h2>Contacto</h2>
+        <p>Email: albert@ejemplo.com</p>
+    </section>
+</main>
+
+<script>
+    const canvas = document.querySelector(".matrix-bg");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const katakana = "アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン";
+    const letters = katakana.split("");
+
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = new Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00ffcc";
+        ctx.font = fontSize + "px monospace";
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+</body>
+</html>
