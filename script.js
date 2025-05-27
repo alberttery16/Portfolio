@@ -58,20 +58,21 @@ gsap.from("#content", {
 
 
 // "Estilo matrix"
+  const section = document.querySelector(".projects");
   const canvas = document.querySelector(".matrix-bg");
   const ctx = canvas.getContext("2d");
 
-  function resizeMatrix() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+  function resizeCanvasToSection() {
+    canvas.width = section.clientWidth;
+    canvas.height = section.clientHeight;
   }
 
-  resizeMatrix();
-  window.addEventListener("resize", resizeMatrix);
+  resizeCanvasToSection();
+  window.addEventListener("resize", resizeCanvasToSection);
 
-  const katakana = "アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン";
+  const katakana = "アカサタナハマヤラワガザダバパイキシチニヒミリギジビピウクスツヌフムユルグズブプエケセテネヘメレゲゼベペオコソトノホモヨロゴゾドボポヴッン";
   const letters = katakana.split("");
-  const fontSize = 16;
+  const fontSize = 14;
   const columns = Math.floor(canvas.width / fontSize);
   const drops = new Array(columns).fill(1);
 
@@ -95,4 +96,3 @@ gsap.from("#content", {
   }
 
   setInterval(drawMatrix, 33);
-
