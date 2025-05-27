@@ -93,10 +93,12 @@ html, body {
   opacity: 0.15;
 }
 
-.projects > *:not(canvas) {
+.projects {
   position: relative;
-  z-index: 1;
+  min-height: 600px;
+  overflow: hidden;
 }
+
 
 .project-list {
   display: flex;
