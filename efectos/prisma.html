@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dimensión Prisma</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: #000;
+      color: white;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #0fffc1, #3f5efb, #fc466b, #3f5efb);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 4rem;
+      text-shadow: 0 0 30px rgba(255,255,255,0.3);
+      animation: glow 3s ease-in-out infinite alternate;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+
+    h1:hover {
+      transform: scale(1.05) rotateX(10deg);
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 40px #ff00cc; }
+    }
+
+    .scroll-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: #fff;
+      opacity: 0.6;
+      animation: bounce 2s infinite;
+      z-index: 2;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<section><h1>Bienvenido al Prisma</h1></section>
+<section><h1>Fluye con los colores</h1></section>
+<section><h1>Deja que te envuelva</h1></section>
+<section><h1>Explora tu mente</h1></section>
+
+<div class="scroll-indicator">↓ Desliza para continuar ↓</div>
+
+<script>
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  const particles = Array.from({length: 60}, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 2 + 1,
+    dx: (Math.random() - 0.5) * 0.7,
+    dy: (Math.random() - 0.5) * 0.7,
+    alpha: Math.random() * 0.5 + 0.3
+  }));
+
+  let mouse = { x: w / 2, y: h / 2 };
+
+  canvas.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      // Movimiento básico
+      p.x += p.dx;
+      p.y += p.dy;
+
+      // Rebote
+      if (p.x < 0 || p.x > w) p.dx *= -1;
+      if (p.y < 0 || p.y > h) p.dy *= -1;
+
+      // Interacción con el mouse (repulsión leve)
+      const dx = p.x - mouse.x;
+      const dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 100) {
+        p.dx += dx / dist * 0.05;
+        p.dy += dy / dist * 0.05;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = "#00ffff";
+      ctx.fill();
+    });
+
+    requestAnimationFrame(drawParticles);
+  }
+
+  drawParticles();
+
+  window.addEventListener("resize", () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+</script>
+</body>
+</html>
