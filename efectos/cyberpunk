@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyber Future Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --main-color: #00fff7;
+      --bg-dark: #0c0c1a;
+      --bg-light: #f4f4f9;
+      --text-light: #ffffff;
+      --text-dark: #111;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid var(--main-color);
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--main-color);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: var(--main-color);
+    }
+    .toggle-btn {
+      background: none;
+      border: 1px solid var(--main-color);
+      color: var(--main-color);
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .toggle-btn:hover {
+      background-color: var(--main-color);
+      color: black;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1604027098993-2f145a3b3489') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      max-width: 700px;
+      animation: fadeIn 1.2s ease;
+    }
+    .hero-content h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px var(--main-color);
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #ddd;
+    }
+
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--main-color);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(15px);
+      transition: 0.4s ease;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    .card.reveal {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .card:hover {
+      box-shadow: 0 0 20px var(--main-color);
+      transform: scale(1.03);
+    }
+    .card h3 {
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+
+    .about {
+      background: radial-gradient(circle at top, #13132a 0%, #0a0a18 100%);
+      color: #ccc;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+    button {
+      background-color: var(--main-color);
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: white;
+      color: black;
+    }
+
+    footer {
+      background-color: #060612;
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media(max-width: 600px) {
+      .hero-content h2 {
+        font-size: 2rem;
+      }
+    }
+
+    body.light {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+    }
+    body.light .card {
+      background: rgba(0, 0, 0, 0.05);
+      color: #000;
+    }
+    body.light nav a {
+      color: #111;
+    }
+    body.light .toggle-btn {
+      border-color: #111;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CyberHub</h1>
+  <nav>
+    <a href="#about">Nosotros</a>
+    <a href="#features">Tecnología</a>
+    <a href="#contact">Contacto</a>
+    <button class="toggle-btn" onclick="toggleMode()">Modo Claro</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>El Futuro Es Ahora</h2>
+    <p>Explora un portal hacia la innovación, el diseño y la vanguardia tecnológica.</p>
+  </div>
+</section>
+
+<section id="features">
+  <h2 style="text-align:center; margin-bottom: 40px;">Nuestros Pilares</h2>
+  <div class="card-grid">
+    <div class="card"> <h3>Diseño Futurista</h3> <p>Interfaz con visuales fluidos y atractivos pensados para impactar al usuario.</p> </div>
+    <div class="card"> <h3>Innovación Constante</h3> <p>Siempre explorando nuevas tecnologías: WebGL, IA, interactividad total.</p> </div>
+    <div class="card"> <h3>Experiencia Total</h3> <p>Fusionamos animaciones suaves, efectos parallax y navegación intuitiva.</p> </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <h2 style="text-align:center; margin-bottom: 40px;">Quiénes Somos</h2>
+  <p style="max-width: 700px; margin: auto; font-size: 1.1rem; line-height: 1.7;">
+    Cyber Future Hub nace del deseo de crear experiencias digitales inmersivas y revolucionarias. Nuestro equipo combina diseño, desarrollo y creatividad para desafiar los límites de la web actual.
+  </p>
+</section>
+
+<section id="contact">
+  <h2 style="text-align:center; margin-bottom: 40px;">Contacto</h2>
+  <form onsubmit="enviarFormulario(event)">
+    <input type="text" placeholder="Tu nombre" required>
+    <input type="email" placeholder="Tu email" required>
+    <textarea rows="5" placeholder="Tu mensaje..." required></textarea>
+    <button type="submit">Enviar</button>
+    <p id="feedback" style="text-align:center; margin-top:10px;"></p>
+  </form>
+</section>
+
+<footer>
+  &copy; 2025 CyberHub. Todos los derechos reservados.
+</footer>
+
+<script>
+  function toggleMode() {
+    document.body.classList.toggle('light');
+  }
+
+  function enviarFormulario(event) {
+    event.preventDefault();
+    document.getElementById("feedback").textContent = "Mensaje enviado ✅";
+  }
+
+  // Scroll reveal de tarjetas
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  cards.forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>
