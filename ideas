@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Ideas</title>
+  <style>
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #222;
+      --card-bg: #fff;
+      --accent: #007acc;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #f5f5f5;
+      --card-bg: #2a2a2a;
+      --accent: #00d1ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 2rem;
+      background-color: var(--card-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px;
+    }
+
+    .controls button {
+      padding: 10px 20px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: darken(var(--accent), 10%);
+      filter: brightness(0.9);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-left: 5px solid var(--accent);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+      animation: fadeIn 0.6s ease;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+<header>
+  💡 Panel de Ideas
+</header>
+
+<div class="controls">
+  <button onclick="addCard()">➕ Añadir Idea</button>
+  <button onclick="toggleTheme()">🌗 Cambiar Tema</button>
+</div>
+
+<div class="container" id="cardContainer">
+  <div class="card">Explorar nuevas tecnologías para clientes.</div>
+  <div class="card">Crear un mini juego web interactivo.</div>
+  <div class="card">Diseñar una interfaz animada sin imágenes.</div>
+</div>
+
+<script>
+  function addCard() {
+    const idea = prompt("Escribe tu nueva idea:");
+    if (idea && idea.trim() !== "") {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.textContent = idea;
+      document.getElementById("cardContainer").appendChild(card);
+    }
+  }
+
+  function toggleTheme() {
+    const body = document.body;
+    const current = body.getAttribute("data-theme");
+    body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+  }
+</script>
+
+<footer style="text-align: center; padding: 20px; background-color: var(--card-bg);">
+  <p>© 2025 Panel de Ideas. Todos los derechos reservados.</p>
+</body>
+</html>
