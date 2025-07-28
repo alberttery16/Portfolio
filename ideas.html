@@ -57,13 +57,31 @@
       filter: brightness(0.9);
     }
 
+    .category-section {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .category-section h2 {
+      margin-bottom: 10px;
+      border-left: 5px solid var(--accent);
+      padding-left: 10px;
+    }
+
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+      min-height: 100px;
+      border: 2px dashed transparent;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .container.drag-over {
+      border-color: var(--accent);
+      background-color: rgba(0, 122, 204, 0.05);
     }
 
     .card {
@@ -75,6 +93,7 @@
       animation: fadeIn 0.6s ease;
       transition: transform 0.3s;
       position: relative;
+      cursor: grab;
     }
 
     .card:hover {
@@ -114,54 +133,89 @@
   <button onclick="toggleTheme()">🌗 Cambiar Tema</button>
 </div>
 
-<div class="container" id="cardContainer"></div>
+<div id="ideasContainer">
+  <div class="category-section">
+    <h2>📌 Hacer Hoy</h2>
+    <div class="container" id="hoyContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'hoy')" ondragleave="removeHighlight(event)"></div>
+  </div>
+  <div class="category-section">
+    <h2>📅 Hacer Mañana</h2>
+    <div class="container" id="mananaContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'manana')" ondragleave="removeHighlight(event)"></div>
+  </div>
+  <div class="category-section">
+    <h2>🗓️ Esta Semana</h2>
+    <div class="container" id="semanaContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'semana')" ondragleave="removeHighlight(event)"></div>
+  </div>
+</div>
 
 <script>
-  const STORAGE_KEY = "ideasGuardadas";
+  const STORAGE_KEY = "ideasPorCategoria";
+  const categorias = {
+    hoy: "hoyContainer",
+    manana: "mananaContainer",
+    semana: "semanaContainer"
+  };
 
-  function guardarIdeas(ideas) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ideas));
+  function guardarIdeas(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 
   function cargarIdeas() {
     const datos = localStorage.getItem(STORAGE_KEY);
-    return datos ? JSON.parse(datos) : [];
+    return datos ? JSON.parse(datos) : { hoy: [], manana: [], semana: [] };
   }
 
-  function crearCard(idea, index) {
+  function crearCard(texto, categoria, index) {
     const card = document.createElement("div");
     card.className = "card";
+    card.setAttribute("draggable", "true");
+    card.setAttribute("data-categoria", categoria);
+    card.setAttribute("data-index", index);
+
+    card.ondragstart = e => {
+      e.dataTransfer.setData("text/plain", JSON.stringify({ categoria, index }));
+    };
 
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
     removeBtn.textContent = "➖";
     removeBtn.onclick = () => {
-      ideas.splice(index, 1);
+      ideas[categoria].splice(index, 1);
       guardarIdeas(ideas);
       renderizarIdeas();
     };
 
-    const texto = document.createElement("div");
-    texto.textContent = idea;
+    const contenido = document.createElement("div");
+    contenido.textContent = texto;
 
     card.appendChild(removeBtn);
-    card.appendChild(texto);
-    document.getElementById("cardContainer").appendChild(card);
+    card.appendChild(contenido);
+
+    document.getElementById(categorias[categoria]).appendChild(card);
   }
 
   function renderizarIdeas() {
-    const contenedor = document.getElementById("cardContainer");
-    contenedor.innerHTML = "";
-    ideas.forEach((idea, index) => crearCard(idea, index));
+    Object.keys(categorias).forEach(cat => {
+      const container = document.getElementById(categorias[cat]);
+      container.innerHTML = "";
+      ideas[cat].forEach((idea, index) => crearCard(idea, cat, index));
+    });
   }
 
   function addCard() {
-    const nuevaIdea = prompt("Escribe tu nueva idea:");
-    if (nuevaIdea && nuevaIdea.trim() !== "") {
-      ideas.push(nuevaIdea.trim());
-      guardarIdeas(ideas);
-      renderizarIdeas();
-    }
+    const texto = prompt("Escribe tu nueva idea:");
+    if (!texto || texto.trim() === "") return;
+
+    const categoria = prompt("¿En qué categoría quieres ponerla?\n1 = Hoy\n2 = Mañana\n3 = Esta semana");
+    let catKey;
+    if (categoria === "1") catKey = "hoy";
+    else if (categoria === "2") catKey = "manana";
+    else if (categoria === "3") catKey = "semana";
+    else return alert("Categoría no válida");
+
+    ideas[catKey].push(texto.trim());
+    guardarIdeas(ideas);
+    renderizarIdeas();
   }
 
   function toggleTheme() {
@@ -170,7 +224,32 @@
     body.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  // Inicialización
+  function allowDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add("drag-over");
+  }
+
+  function removeHighlight(e) {
+    e.currentTarget.classList.remove("drag-over");
+  }
+
+  function handleDrop(e, nuevaCategoria) {
+    e.preventDefault();
+    e.currentTarget.classList.remove("drag-over");
+
+    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const idea = ideas[data.categoria][data.index];
+
+    // Quitar de la categoría anterior
+    ideas[data.categoria].splice(data.index, 1);
+    // Añadir a la nueva
+    ideas[nuevaCategoria].push(idea);
+
+    guardarIdeas(ideas);
+    renderizarIdeas();
+  }
+
+  // Inicializar
   let ideas = cargarIdeas();
   renderizarIdeas();
 </script>
