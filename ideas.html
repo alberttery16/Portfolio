@@ -54,7 +54,6 @@
     }
 
     .controls button:hover {
-      background-color: darken(var(--accent), 10%);
       filter: brightness(0.9);
     }
 
@@ -75,10 +74,27 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.05);
       animation: fadeIn 0.6s ease;
       transition: transform 0.3s;
+      position: relative;
     }
 
     .card:hover {
       transform: translateY(-5px);
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .remove-btn:hover {
+      color: red;
     }
 
     @keyframes fadeIn {
@@ -98,20 +114,53 @@
   <button onclick="toggleTheme()">🌗 Cambiar Tema</button>
 </div>
 
-<div class="container" id="cardContainer">
-  <div class="card">Explorar nuevas tecnologías para clientes.</div>
-  <div class="card">Crear un mini juego web interactivo.</div>
-  <div class="card">Diseñar una interfaz animada sin imágenes.</div>
-</div>
+<div class="container" id="cardContainer"></div>
 
 <script>
+  const STORAGE_KEY = "ideasGuardadas";
+
+  function guardarIdeas(ideas) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ideas));
+  }
+
+  function cargarIdeas() {
+    const datos = localStorage.getItem(STORAGE_KEY);
+    return datos ? JSON.parse(datos) : [];
+  }
+
+  function crearCard(idea, index) {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "remove-btn";
+    removeBtn.textContent = "➖";
+    removeBtn.onclick = () => {
+      ideas.splice(index, 1);
+      guardarIdeas(ideas);
+      renderizarIdeas();
+    };
+
+    const texto = document.createElement("div");
+    texto.textContent = idea;
+
+    card.appendChild(removeBtn);
+    card.appendChild(texto);
+    document.getElementById("cardContainer").appendChild(card);
+  }
+
+  function renderizarIdeas() {
+    const contenedor = document.getElementById("cardContainer");
+    contenedor.innerHTML = "";
+    ideas.forEach((idea, index) => crearCard(idea, index));
+  }
+
   function addCard() {
-    const idea = prompt("Escribe tu nueva idea:");
-    if (idea && idea.trim() !== "") {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.textContent = idea;
-      document.getElementById("cardContainer").appendChild(card);
+    const nuevaIdea = prompt("Escribe tu nueva idea:");
+    if (nuevaIdea && nuevaIdea.trim() !== "") {
+      ideas.push(nuevaIdea.trim());
+      guardarIdeas(ideas);
+      renderizarIdeas();
     }
   }
 
@@ -120,9 +169,15 @@
     const current = body.getAttribute("data-theme");
     body.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
+
+  // Inicialización
+  let ideas = cargarIdeas();
+  renderizarIdeas();
 </script>
 
 <footer style="text-align: center; padding: 20px; background-color: var(--card-bg);">
   <p>© 2025 Panel de Ideas. Todos los derechos reservados.</p>
+</footer>
+
 </body>
 </html>
