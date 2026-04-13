@@ -6,19 +6,27 @@
   <title>Alberttery16 - Portfolio</title>
   <meta name="description" content="Portafolio de Albert Tery, desarrollador web con enfoque en ciberseguridad y diseño de experiencias digitales.">
   <meta name="keywords" content="Albert Tery, desarrollador web, ciberseguridad, portfolio, programación, frontend, backend, JavaScript, HTML, CSS">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" integrity="sha512-wC/cunGGDjXSl9OHsu0040x40Knsz2k8A48uA94h0ZkRjEwR81a2kZ7zP1yHq0N1gQZ/2VqngO1vA0+O2K3YxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <div id="particles-js"></div>
   <section class="hero">
     <video autoplay muted loop class="bg-video">
       <source src="video.mp4" type="video/mp4">
     </video>
-    <div class="overlay-text">
-      <h1>Alberttery16</h1>
-      <p>Digitalización · Redes Sociales · Ciberseguridad</p>
+    <div class="overlay-text interactive-hover">
+      <h1 class="glitch" data-text="Alberttery16">Alberttery16</h1>
+      <p class="subtitle">Digitalización · Redes Sociales · Ciberseguridad</p>
     </div>
   </section>
 
@@ -32,7 +40,7 @@
   <div class="project-list">
 
     <!-- Proyecto 1 -->
-    <div class="project-card">
+    <div class="project-card interactive-hover" data-tilt data-tilt-glare data-tilt-max-glare="0.5" data-tilt-scale="1.05">
       <img src="juegos.png" alt="Proyecto 1" class="project-thumb">
       <div class="project-info">
         <h3>MiniJuegos</h3>
@@ -42,7 +50,7 @@
     </div>
 
     <!-- Proyecto 2 -->
-    <div class="project-card">
+    <div class="project-card interactive-hover" data-tilt data-tilt-glare data-tilt-max-glare="0.5" data-tilt-scale="1.05">
       <img src="tienda.png" alt="Proyecto 2" class="project-thumb">
       <div class="project-info">
         <h3>Tienda (Modelo de prueba)</h3>
@@ -52,7 +60,7 @@
     </div>
 
      <!-- Proyecto 3 -->
-    <div class="project-card">
+    <div class="project-card interactive-hover" data-tilt data-tilt-glare data-tilt-max-glare="0.5" data-tilt-scale="1.05">
       <img src="Ideas.png" alt="Proyecto 3" class="project-thumb">
       <div class="project-info">
         <h3>Anotar Ideas</h3>
@@ -71,7 +79,7 @@
   <div class="project-list">
 
     <!-- Efecto 1 -->
-    <div class="project-card">
+    <div class="project-card interactive-hover" data-tilt data-tilt-glare data-tilt-max-glare="0.5" data-tilt-scale="1.05">
       <div class="project-info">
         <h3>Matrix</h3>
         <a href="efectos/matrix.html" target="_blank" class="project-link">Ver efecto</a>
@@ -79,7 +87,7 @@
     </div>
 
     <!-- Efecto 2 -->
-    <div class="project-card">
+    <div class="project-card interactive-hover" data-tilt data-tilt-glare data-tilt-max-glare="0.5" data-tilt-scale="1.05">
       <div class="project-info">
         <h3>Cyberpunk</h3>
         <a href="efectos/cyberpunk.html" target="_blank" class="project-link">Ver efecto</a>
@@ -87,7 +95,7 @@
     </div>
 
     <!-- Efecto 3 -->
-    <div class="project-card">
+    <div class="project-card interactive-hover" data-tilt data-tilt-glare data-tilt-max-glare="0.5" data-tilt-scale="1.05">
       <div class="project-info">
         <h3>Prisma Colores</h3>
         <a href="efectos/prisma.html" target="_blank" class="project-link">Ver efecto</a>
