@@ -1,167 +1,469 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Panel de Ideas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Ideas // Kanban Premium</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
     :root {
-      --bg-color: #f5f5f5;
-      --text-color: #222;
-      --card-bg: #fff;
-      --accent: #007acc;
+      --bg-color: #05050a;
+      --text-color: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.1);
+      
+      --accent-1: #ff007f; /* Hoy */
+      --accent-2: #00f3ff; /* Mañana */
+      --accent-3: #b000ff; /* Semana */
+      --btn-bg: rgba(255, 255, 255, 0.1);
     }
 
-    [data-theme="dark"] {
-      --bg-color: #1e1e1e;
-      --text-color: #f5f5f5;
-      --card-bg: #2a2a2a;
-      --accent: #00d1ff;
+    [data-theme="light"] {
+      --bg-color: #f0f4f8;
+      --text-color: #111;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --card-border: rgba(0, 0, 0, 0.1);
+      
+      --accent-1: #ff3366; 
+      --accent-2: #00a2ff; 
+      --accent-3: #8a2be2; 
+      --btn-bg: rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Outfit', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.5s ease, color 0.5s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Background Effect */
+    .ambient-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      background: radial-gradient(circle at 15% 50%, rgba(255, 0, 127, 0.15), transparent 40%),
+                  radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.15), transparent 40%),
+                  radial-gradient(circle at 50% 80%, rgba(176, 0, 255, 0.15), transparent 40%);
+      filter: blur(60px);
+      animation: ambientShift 15s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes ambientShift {
+      0% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.1) translateY(20px); }
+      100% { transform: scale(1) translateY(0); }
     }
 
     header {
-      padding: 30px 20px;
+      padding: 40px 20px 20px;
       text-align: center;
-      font-size: 2rem;
-      background-color: var(--card-bg);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(to right, #fff, #aaa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    [data-theme="light"] header h1 {
+      background: linear-gradient(to right, #111, #555);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .controls {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin: 20px;
+      gap: 15px;
+      margin: 10px 20px 40px;
+      z-index: 10;
     }
 
     .controls button {
-      padding: 10px 20px;
-      background-color: var(--accent);
-      border: none;
-      border-radius: 6px;
-      color: white;
-      font-weight: bold;
+      padding: 12px 25px;
+      background-color: var(--btn-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
     .controls button:hover {
-      filter: brightness(0.9);
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    [data-theme="light"] .controls button:hover {
+       background-color: rgba(0, 0, 0, 0.1);
     }
 
-    .category-section {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
+    /* KANBAN BOARD */
+    .board {
+      display: flex;
+      gap: 30px;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      flex-grow: 1;
+      z-index: 10;
+      overflow-x: auto;
+      align-items: flex-start;
     }
 
-    .category-section h2 {
-      margin-bottom: 10px;
-      border-left: 5px solid var(--accent);
-      padding-left: 10px;
+    .column {
+      flex: 1;
+      min-width: 320px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: border-color 0.3s ease;
     }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      min-height: 100px;
-      border: 2px dashed transparent;
-      padding: 10px;
-      border-radius: 8px;
+    .column-header {
+      padding: 20px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+    
+    .count-badge {
+      background: rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 2px 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    [data-theme="light"] .count-badge {
+      background: rgba(0,0,0,0.1);
     }
 
-    .container.drag-over {
-      border-color: var(--accent);
-      background-color: rgba(0, 122, 204, 0.05);
+    /* Column Color Variations */
+    .col-hoy .column-header { color: var(--accent-1); }
+    .col-manana .column-header { color: var(--accent-2); }
+    .col-semana .column-header { color: var(--accent-3); }
+
+    .drop-zone {
+      padding: 20px;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: background 0.3s ease;
+    }
+
+    .drop-zone.drag-over {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    [data-theme="light"] .drop-zone.drag-over {
+      background: rgba(0, 0, 0, 0.03);
     }
 
     .card {
-      background-color: var(--card-bg);
-      border-left: 5px solid var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-      animation: fadeIn 0.6s ease;
-      transition: transform 0.3s;
-      position: relative;
+      border-radius: 14px;
       cursor: grab;
+      position: relative;
+      animation: slideIn 0.4s ease-out;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    
+    [data-theme="light"] .card {
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
-    .card:hover {
-      transform: translateY(-5px);
+    .col-hoy .card:hover { border-color: var(--accent-1); box-shadow: 0 5px 20px rgba(255, 0, 127, 0.2); }
+    .col-manana .card:hover { border-color: var(--accent-2); box-shadow: 0 5px 20px rgba(0, 243, 255, 0.2); }
+    .col-semana .card:hover { border-color: var(--accent-3); box-shadow: 0 5px 20px rgba(176, 0, 255, 0.2); }
+
+    .card:active {
+      cursor: grabbing;
+      transform: scale(1.02);
+    }
+
+    .card-content {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      font-weight: 300;
+      word-break: break-word;
+      padding-right: 25px; /* space for delete btn */
     }
 
     .remove-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 15px;
       background: none;
       border: none;
-      color: var(--accent);
+      color: var(--text-color);
+      opacity: 0.3;
       font-size: 1.2rem;
       cursor: pointer;
-      font-weight: bold;
+      transition: all 0.2s;
     }
 
+    .card:hover .remove-btn {
+      opacity: 0.8;
+    }
     .remove-btn:hover {
-      color: red;
+      color: #ff3333;
+      opacity: 1 !important;
+      transform: scale(1.2);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MODERN MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      background: var(--bg-color);
+      border: 1px solid var(--card-border);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .modal-overlay.active .modal-box {
+      transform: translateY(0);
+    }
+
+    .modal-box h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .modal-input {
+      width: 100%;
+      padding: 15px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--text-color);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      outline: none;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .modal-input:focus {
+      border-color: var(--accent-1);
+    }
+
+    .modal-select {
+      width: 100%;
+      padding: 15px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--text-color);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 25px;
+      outline: none;
+      cursor: pointer;
+    }
+    .modal-select option {
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .modal-actions button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-cancel {
+      background: var(--card-bg);
+      color: var(--text-color);
+    }
+    .btn-save {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      color: #fff;
+    }
+    .btn-cancel:hover { background: rgba(255,255,255,0.1); }
+    .btn-save:hover { filter: brightness(1.2); }
+
+    /* Custom Scrollbar for columns */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.3);
     }
   </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
+
+<div class="ambient-bg"></div>
 
 <header>
-  💡 Panel de Ideas
+  <h1>IDEAS_HUB</h1>
 </header>
 
 <div class="controls">
-  <button onclick="addCard()">➕ Añadir Idea</button>
-  <button onclick="toggleTheme()">🌗 Cambiar Tema</button>
+  <button onclick="openModal()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    Nueva Idea
+  </button>
+  <button onclick="toggleTheme()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    Tema
+  </button>
 </div>
 
-<div id="ideasContainer">
-  <div class="category-section">
-    <h2>📌 Hacer Hoy</h2>
-    <div class="container" id="hoyContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'hoy')" ondragleave="removeHighlight(event)"></div>
+<div class="board" id="ideasContainer">
+  <!-- HOY -->
+  <div class="column col-hoy">
+    <div class="column-header">
+      <span>🚀 Hoy</span>
+      <span class="count-badge" id="count-hoy">0</span>
+    </div>
+    <div class="drop-zone" id="hoyContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'hoy')" ondragleave="removeHighlight(event)"></div>
   </div>
-  <div class="category-section">
-    <h2>📅 Hacer Mañana</h2>
-    <div class="container" id="mananaContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'manana')" ondragleave="removeHighlight(event)"></div>
+
+  <!-- MAÑANA -->
+  <div class="column col-manana">
+    <div class="column-header">
+      <span>⚡ Mañana</span>
+      <span class="count-badge" id="count-manana">0</span>
+    </div>
+    <div class="drop-zone" id="mananaContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'manana')" ondragleave="removeHighlight(event)"></div>
   </div>
-  <div class="category-section">
-    <h2>🗓️ Esta Semana</h2>
-    <div class="container" id="semanaContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'semana')" ondragleave="removeHighlight(event)"></div>
+
+  <!-- SEMANA -->
+  <div class="column col-semana">
+    <div class="column-header">
+      <span>🪐 Esta Semana</span>
+      <span class="count-badge" id="count-semana">0</span>
+    </div>
+    <div class="drop-zone" id="semanaContainer" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'semana')" ondragleave="removeHighlight(event)"></div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="ideaModal">
+  <div class="modal-box">
+    <h2>Añadir al flujo de ideas</h2>
+    <textarea id="ideaText" class="modal-input" placeholder="Describe tu nueva idea con detalle..."></textarea>
+    <select id="ideaCategory" class="modal-select">
+      <option value="hoy">🚀 Hoy</option>
+      <option value="manana">⚡ Mañana</option>
+      <option value="semana">🪐 Esta Semana</option>
+    </select>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveNewIdea()">Guardar Idea</button>
+    </div>
   </div>
 </div>
 
 <script>
-  const STORAGE_KEY = "ideasPorCategoria";
+  const STORAGE_KEY = "ideasPorCategoriaPremium";
+  // Migrate old data if present to new key structure to avoid loss
+  const OLD_STORAGE_KEY = "ideasPorCategoria";
+  
   const categorias = {
     hoy: "hoyContainer",
     manana: "mananaContainer",
     semana: "semanaContainer"
   };
 
+  let draggedIdea = null;
+
   function guardarIdeas(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 
   function cargarIdeas() {
-    const datos = localStorage.getItem(STORAGE_KEY);
+    let datos = localStorage.getItem(STORAGE_KEY);
+    if (!datos) {
+      // Intentar migrar del viejo sistema si existe
+      let datosViejos = localStorage.getItem(OLD_STORAGE_KEY);
+      if(datosViejos) {
+         datos = datosViejos;
+         guardarIdeas(JSON.parse(datosViejos)); // Guardar en el nuevo formato
+      }
+    }
     return datos ? JSON.parse(datos) : { hoy: [], manana: [], semana: [] };
   }
 
@@ -173,19 +475,33 @@
     card.setAttribute("data-index", index);
 
     card.ondragstart = e => {
+      draggedIdea = card;
       e.dataTransfer.setData("text/plain", JSON.stringify({ categoria, index }));
+      // Efecto visual al arrastrar
+      setTimeout(() => card.style.opacity = "0.4", 0);
+    };
+
+    card.ondragend = () => {
+      draggedIdea.style.opacity = "1";
+      draggedIdea = null;
     };
 
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
-    removeBtn.textContent = "➖";
+    removeBtn.innerHTML = "<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'></line><line x1='6' y1='6' x2='18' y2='18'></line></svg>";
     removeBtn.onclick = () => {
-      ideas[categoria].splice(index, 1);
-      guardarIdeas(ideas);
-      renderizarIdeas();
+      // Add out animation before removing
+      card.style.transform = "scale(0.8)";
+      card.style.opacity = "0";
+      setTimeout(() => {
+        ideas[categoria].splice(index, 1);
+        guardarIdeas(ideas);
+        renderizarIdeas();
+      }, 200);
     };
 
     const contenido = document.createElement("div");
+    contenido.className = "card-content";
     contenido.textContent = texto;
 
     card.appendChild(removeBtn);
@@ -199,23 +515,34 @@
       const container = document.getElementById(categorias[cat]);
       container.innerHTML = "";
       ideas[cat].forEach((idea, index) => crearCard(idea, cat, index));
+      // Update counts
+      document.getElementById("count-" + cat).innerText = ideas[cat].length;
     });
   }
 
-  function addCard() {
-    const texto = prompt("Escribe tu nueva idea:");
-    if (!texto || texto.trim() === "") return;
+  /* MODAL LOGIC */
+  function openModal() {
+    document.getElementById('ideaText').value = "";
+    document.getElementById('ideaModal').classList.add('active');
+    document.getElementById('ideaText').focus();
+  }
 
-    const categoria = prompt("¿En qué categoría quieres ponerla?\n1 = Hoy\n2 = Mañana\n3 = Esta semana");
-    let catKey;
-    if (categoria === "1") catKey = "hoy";
-    else if (categoria === "2") catKey = "manana";
-    else if (categoria === "3") catKey = "semana";
-    else return alert("Categoría no válida");
+  function closeModal() {
+    document.getElementById('ideaModal').classList.remove('active');
+  }
 
+  function saveNewIdea() {
+    const texto = document.getElementById('ideaText').value;
+    if (!texto || texto.trim() === "") {
+      closeModal();
+      return;
+    }
+    const catKey = document.getElementById('ideaCategory').value;
+    
     ideas[catKey].push(texto.trim());
     guardarIdeas(ideas);
     renderizarIdeas();
+    closeModal();
   }
 
   function toggleTheme() {
@@ -224,6 +551,7 @@
     body.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
+  /* DRAG & DROP LOGIC */
   function allowDrop(e) {
     e.preventDefault();
     e.currentTarget.classList.add("drag-over");
@@ -237,26 +565,31 @@
     e.preventDefault();
     e.currentTarget.classList.remove("drag-over");
 
-    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
-    const idea = ideas[data.categoria][data.index];
+    try {
+      const dataStr = e.dataTransfer.getData("text/plain");
+      if(!dataStr) return;
+      const data = JSON.parse(dataStr);
+      
+      if(data.categoria === nuevaCategoria) return; // Same column drop
 
-    // Quitar de la categoría anterior
-    ideas[data.categoria].splice(data.index, 1);
-    // Añadir a la nueva
-    ideas[nuevaCategoria].push(idea);
+      const idea = ideas[data.categoria][data.index];
 
-    guardarIdeas(ideas);
-    renderizarIdeas();
+      // Quitar de la categoría anterior
+      ideas[data.categoria].splice(data.index, 1);
+      // Añadir a la nueva (al final)
+      ideas[nuevaCategoria].push(idea);
+
+      guardarIdeas(ideas);
+      renderizarIdeas();
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   // Inicializar
   let ideas = cargarIdeas();
   renderizarIdeas();
 </script>
-
-<footer style="text-align: center; padding: 20px; background-color: var(--card-bg);">
-  <p>© 2025 Panel de Ideas. Todos los derechos reservados.</p>
-</footer>
 
 </body>
 </html>

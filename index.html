@@ -25,6 +25,15 @@
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
 
+  <!-- DEV CONSOLE EASTER EGG -->
+  <div class="dev-console" id="dev-console">
+    <div id="dev-output">SISTEMA CIBERNÉTICO INICIADO. Escribe 'help' para ver comandos.</div>
+    <div class="dev-input-wrapper">
+      <span>></span>
+      <input type="text" id="dev-input" placeholder="Comando...">
+    </div>
+  </div>
+
   <!-- LOADER -->
   <div class="loader">
     <div class="loader-content">
@@ -44,7 +53,7 @@
         <div class="grid-floor"></div>
         <div class="hero-content">
           <h1 class="hero-title glitch-mega">ALBERTTERY16</h1>
-          <p class="hero-subtitle">SYSTEM_ARCHITECT // CREATIVE_DEVELOPER // CYBERSEC</p>
+          <p class="hero-subtitle">ARCHITECT // DEVELOPER // CYBERSECURITY // GAMER</p>
         </div>
       </section>
 
@@ -58,6 +67,21 @@
             No construyo simples páginas web, desarrollo inmersiones tecnológicas diseñadas para impresionar 
             desde la primera línea de código.
           </p>
+          <div class="secret-hint" title="SYS_OVERRIDE">SEQ: ↑ ↑ ↓ ↓ ← → ← → B A</div>
+          <button class="hologram-trigger cv-large" id="cv-trigger">[ EXTRAER_CV ]</button>
+          
+          <!-- HOLOGRAM CV -->
+          <div class="hologram-overlay" id="hologram-overlay">
+            <div class="hologram-card" id="hologram-card">
+              <div class="hologram-glare"></div>
+              <h3>ALBERT TERY</h3>
+              <p>Desarrollador Full-Stack</p>
+              <br>
+              <p>> Nivel Seguridad: MAX</p>
+              <p>> Especialidad: JS / CSS / UX</p>
+            </div>
+            <button class="close-hologram" id="close-hologram">CERRAR_ENLACE</button>
+          </div>
         </div>
       </section>
 
@@ -70,12 +94,12 @@
             
             <!-- PANEL 1 -->
             <div class="project-panel">
-              <div class="panel-image">
-                <img src="juegos.png" alt="MiniJuegos">
+              <div class="panel-image iframe-thumbnail">
+                <iframe src="https://alberttery16.github.io/juegos/" tabindex="-1" title="MiniJuegos Preview"></iframe>
               </div>
               <div class="panel-overlay">
                 <div class="panel-number">01</div>
-                <h3 class="panel-title">MINIJUEGOS</h3>
+                <h3 class="panel-title">COM_GAMES</h3>
                 <p class="panel-desc">Entorno neón inmersivo y lógica interactiva de entretenimiento clásico.</p>
                 <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
               </div>
@@ -83,12 +107,12 @@
 
             <!-- PANEL 2 -->
             <div class="project-panel">
-              <div class="panel-image">
-                <img src="tienda.png" alt="Tienda">
+              <div class="panel-image iframe-thumbnail">
+                <iframe src="https://alberttery16.github.io/Tienda/" tabindex="-1" title="Tienda Preview"></iframe>
               </div>
               <div class="panel-overlay">
                 <div class="panel-number">02</div>
-                <h3 class="panel-title">E-COM_MODEL</h3>
+                <h3 class="panel-title">COM_STORE</h3>
                 <p class="panel-desc">Arquitectura de menús complejos y flujo de comercio escalable.</p>
                 <a href="https://alberttery16.github.io/Tienda/" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
               </div>
@@ -96,12 +120,12 @@
 
             <!-- PANEL 3 -->
             <div class="project-panel">
-              <div class="panel-image">
-                <img src="Ideas.png" alt="Ideas">
+              <div class="panel-image iframe-thumbnail">
+                <iframe src="ideas.html" tabindex="-1" title="Ideas Preview"></iframe>
               </div>
               <div class="panel-overlay">
                 <div class="panel-number">03</div>
-                <h3 class="panel-title">BRAIN_SYNC</h3>
+                <h3 class="panel-title">COM_IDEAS</h3>
                 <p class="panel-desc">Dashboard hiper-limpio para gestión y almacenamiento de ideas lógicas.</p>
                 <a href="ideas.html" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
               </div>
@@ -109,7 +133,9 @@
 
              <!-- PANEL 4 (Efectos) -->
             <div class="project-panel">
-              <div class="panel-image effect-fallback matrix-bg"></div>
+              <div class="panel-image iframe-thumbnail">
+                <iframe src="efectos/matrix.html" tabindex="-1" title="Matrix Preview"></iframe>
+              </div>
               <div class="panel-overlay">
                 <div class="panel-number">04</div>
                 <h3 class="panel-title">VFX_MATRIX</h3>
@@ -120,7 +146,9 @@
 
              <!-- PANEL 5 (Efectos) -->
             <div class="project-panel">
-              <div class="panel-image effect-fallback cyber-bg"></div>
+              <div class="panel-image iframe-thumbnail">
+                <iframe src="efectos/cyberpunk.html" tabindex="-1" title="Cyberpunk Preview"></iframe>
+              </div>
               <div class="panel-overlay">
                 <div class="panel-number">05</div>
                 <h3 class="panel-title">VFX_CYBERPUNK</h3>
@@ -129,13 +157,59 @@
               </div>
             </div>
 
+             <!-- PANEL 6 (Efectos) -->
+            <div class="project-panel">
+              <div class="panel-image iframe-thumbnail">
+                <iframe src="efectos/prisma.html" tabindex="-1" title="Prisma Preview"></iframe>
+              </div>
+              <div class="panel-overlay">
+                <div class="panel-number">06</div>
+                <h3 class="panel-title">VFX_PRISMA</h3>
+                <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
+                <a href="efectos/prisma.html" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+
           </div><!-- /panels-wrapper -->
         </div><!-- /horizontal-scroll-container -->
       </section>
 
+      <!-- NEURAL DECRYPT MINIGAME -->
+      <section class="minigame-section">
+        <h2 class="hollow-title small-hollow text-center">NEURAL_DECRYPT</h2>
+        <div class="minigame-container" id="minigame-container">
+          
+          <div class="game-area">
+            <div class="game-ui">
+              <h3 class="game-status" id="game-status">SISTEMA BLOQUEADO</h3>
+              <p class="game-instructions">Memoriza e intercepta la secuencia de nodos infinitamente.</p>
+              <div class="game-score">Nivel: <span id="layer-count">0</span></div>
+            </div>
+            
+            <div class="simon-game" id="simon-game">
+              <div class="simon-grid">
+                <div class="simon-node" data-color="1" id="node-1"></div>
+                <div class="simon-node" data-color="2" id="node-2"></div>
+                <div class="simon-node" data-color="3" id="node-3"></div>
+                <div class="simon-node" data-color="4" id="node-4"></div>
+              </div>
+              <button class="start-hack-btn" id="start-hack-btn">INIT_SEQ</button>
+            </div>
+          </div>
+
+          <div class="leaderboard-area">
+            <div class="leaderboard-header">GLOBAL_RANKING</div>
+            <ul class="leaderboard-list" id="leaderboard-list">
+              <!-- JS Injected -->
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
       <!-- FOOTER -->
       <footer class="cyber-footer">
-        <h2 class="hollow-title small-hollow">COMM_LINKS ESTABLECIDOS</h2>
+        <h2 class="hollow-title small-hollow">SOCIAL_LINKS ESTABLECIDOS</h2>
         <div class="social-grid">
           <a href="https://instagram.com/alberttery16" target="_blank" class="social-btn">
             <span class="social-bg"></span>
@@ -151,7 +225,7 @@
           </a>
         </div>
         <div class="footer-bar">
-          <p>SISTEMA Y PORTFOLIO POR ALBERT_TERY. TODOS LOS DERECHOS RESERVADOS.</p>
+          <p>SISTEMA Y PORTFOLIO POR ALBERTTERY16. TODOS LOS DERECHOS RESERVADOS.</p>
         </div>
       </footer>
 

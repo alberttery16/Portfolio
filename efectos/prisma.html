@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dimensión Prisma</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
       scroll-behavior: smooth;
-      background: #000;
-      color: white;
     }
 
     body {
-      background: linear-gradient(-45deg, #0fffc1, #3f5efb, #fc466b, #3f5efb);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+      background: #0b0b1a;
+      min-height: 100vh;
+    }
+
+    /* Animated Iridescent Gradient Background */
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(-45deg, #FF3CAC, #784BA0, #2B86C5, #0fffc1);
       background-size: 400% 400%;
-      animation: gradientFlow 15s ease infinite;
+      animation: gradientFlow 20s ease infinite;
+      z-index: -2;
     }
 
     @keyframes gradientFlow {
@@ -27,129 +41,322 @@
       100% { background-position: 0% 50%; }
     }
 
-    section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: 4rem;
-      text-shadow: 0 0 30px rgba(255,255,255,0.3);
-      animation: glow 3s ease-in-out infinite alternate;
-      transition: transform 0.3s ease;
-      cursor: default;
-    }
-
-    h1:hover {
-      transform: scale(1.05) rotateX(10deg);
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #fff; }
-      to { text-shadow: 0 0 40px #ff00cc; }
-    }
-
-    .scroll-indicator {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1rem;
-      color: #fff;
-      opacity: 0.6;
-      animation: bounce 2s infinite;
-      z-index: 2;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-10px); }
-    }
-
+    /* Canvas Particles overlay */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 0;
+      z-index: -1;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none; /* Let interactions pass to main content */
+    }
+
+    .main-container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Glassmorphism Section */
+    section {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      perspective: 1000px;
+    }
+
+    /* Hero Text */
+    .hero-glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 30px;
+      padding: 60px 80px;
+      text-align: center;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: transform 0.3s ease-out;
+      transform-style: preserve-3d;
+    }
+
+    .hero-glass h1 {
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+      transform: translateZ(50px);
+    }
+    
+    .hero-glass p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateZ(30px);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      animation: bounce 2s infinite;
+      letter-spacing: 2px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-15px); }
+    }
+
+    /* Grid of Glass Cards */
+    .glass-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+      transform: skewX(-20deg);
+      transition: 0.5s;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .glass-card:hover::before {
+      left: 150%;
+    }
+
+    .glass-card h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 500;
+      transform: translateZ(40px);
+    }
+    .glass-card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      transform: translateZ(20px);
+    }
+
+    @media (max-width: 768px) {
+      .hero-glass { padding: 40px 20px; }
+      .hero-glass h1 { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
 
+<div class="bg-gradient"></div>
 <canvas id="particles"></canvas>
 
-<section><h1>Bienvenido al Prisma</h1></section>
-<section><h1>Fluye con los colores</h1></section>
-<section><h1>Deja que te envuelva</h1></section>
-<section><h1>Explora tu mente</h1></section>
+<div class="main-container">
+  <section id="hero">
+    <div class="hero-glass" id="hero-card">
+      <h1>Dimensión Prisma</h1>
+      <p>Donde la luz, el código y el color convergen</p>
+    </div>
+    <div class="scroll-indicator">DESCUBRE ↓</div>
+  </section>
 
-<div class="scroll-indicator">↓ Desliza para continuar ↓</div>
+  <section id="content">
+    <div class="glass-grid">
+      <div class="glass-card tilt-card">
+        <h2>Experiencia Fluida</h2>
+        <p>Aprovechamos las propiedades del Glassmorphism para crear interfaces que respiran y se sienten parte del entorno, no simples superposiciones.</p>
+      </div>
+      <div class="glass-card tilt-card">
+        <h2>Iridescencia Dinámica</h2>
+        <p>Los colores reaccionan a cada flujo evolutivo, fusionando estética digital y leyes físicas en el universo del DOM y Canvas.</p>
+      </div>
+      <div class="glass-card tilt-card">
+        <h2>Geometría y Nodos</h2>
+        <p>Partículas conectadas en tiempo real forman estrellas fugaces de información, reaccionando a la interacción con tu cursor.</p>
+      </div>
+    </div>
+  </section>
+</div>
 
 <script>
+  // 1. Particle Network Effect
   const canvas = document.getElementById("particles");
   const ctx = canvas.getContext("2d");
 
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
+  let bounds = { w: window.innerWidth, h: window.innerHeight };
+  canvas.width = bounds.w;
+  canvas.height = bounds.h;
 
-  const particles = Array.from({length: 60}, () => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 0.7,
-    dy: (Math.random() - 0.5) * 0.7,
-    alpha: Math.random() * 0.5 + 0.3
-  }));
+  const particles = [];
+  const particleCount = Math.floor((bounds.w * bounds.h) / 12000); // Responsive amount of particles
 
-  let mouse = { x: w / 2, y: h / 2 };
+  let mouse = { x: null, y: null, radius: 150 };
 
-  canvas.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+  window.addEventListener("mousemove", e => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  });
+  window.addEventListener("mouseout", () => {
+    mouse.x = null;
+    mouse.y = null;
   });
 
-  function drawParticles() {
-    ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
-      // Movimiento básico
-      p.x += p.dx;
-      p.y += p.dy;
+  class Particle {
+    constructor(x, y, dx, dy, size) {
+      this.x = x;
+      this.y = y;
+      this.dx = dx;
+      this.dy = dy;
+      this.size = size;
+      this.baseSize = size;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.fill();
+    }
+    update() {
+      if (this.x > bounds.w || this.x < 0) this.dx = -this.dx;
+      if (this.y > bounds.h || this.y < 0) this.dy = -this.dy;
 
-      // Rebote
-      if (p.x < 0 || p.x > w) p.dx *= -1;
-      if (p.y < 0 || p.y > h) p.dy *= -1;
-
-      // Interacción con el mouse (repulsión leve)
-      const dx = p.x - mouse.x;
-      const dy = p.y - mouse.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 100) {
-        p.dx += dx / dist * 0.05;
-        p.dy += dy / dist * 0.05;
+      // Mouse interaction (Repulsion)
+      if (mouse.x && mouse.y) {
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < mouse.radius) {
+          const forceDirectionX = dx / distance;
+          const forceDirectionY = dy / distance;
+          const force = (mouse.radius - distance) / mouse.radius;
+          const pushX = forceDirectionX * force * 5;
+          const pushY = forceDirectionY * force * 5;
+          
+          this.x -= pushX;
+          this.y -= pushY;
+          this.size = this.baseSize * (1 + force);
+        } else {
+           if(this.size > this.baseSize) this.size -= 0.1;
+        }
       }
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-      ctx.shadowBlur = 20;
-      ctx.shadowColor = "#00ffff";
-      ctx.fill();
-    });
-
-    requestAnimationFrame(drawParticles);
+      this.x += this.dx;
+      this.y += this.dy;
+      this.draw();
+    }
   }
 
-  drawParticles();
+  function initParticles() {
+    particles.length = 0;
+    for (let i = 0; i < particleCount; i++) {
+      let size = (Math.random() * 2) + 0.5;
+      let x = Math.random() * bounds.w;
+      let y = Math.random() * bounds.h;
+      let dx = (Math.random() - 0.5) * 1.5;
+      let dy = (Math.random() - 0.5) * 1.5;
+      particles.push(new Particle(x, y, dx, dy, size));
+    }
+  }
+
+  function connectParticles() {
+    let opacityValue = 1;
+    for (let a = 0; a < particles.length; a++) {
+      for (let b = a; b < particles.length; b++) {
+        let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+                     + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+        if (distance < (bounds.w/7) * (bounds.h/7)) {
+          opacityValue = 1 - (distance / 20000);
+          ctx.strokeStyle = `rgba(255, 255, 255, ${opacityValue * 0.3})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(particles[a].x, particles[a].y);
+          ctx.lineTo(particles[b].x, particles[b].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animateParticles() {
+    requestAnimationFrame(animateParticles);
+    ctx.clearRect(0, 0, bounds.w, bounds.h);
+    
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+    }
+    connectParticles();
+  }
+
+  initParticles();
+  animateParticles();
 
   window.addEventListener("resize", () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+    bounds.w = window.innerWidth;
+    bounds.h = window.innerHeight;
+    canvas.width = bounds.w;
+    canvas.height = bounds.h;
+    initParticles();
   });
+
+  // 2. 3D Tilt Effect on Hero and Cards
+  const tiltElements = document.querySelectorAll('.hero-glass, .tilt-card');
+  tiltElements.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+    });
+  });
+
 </script>
 </body>
 </html>

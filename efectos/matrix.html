@@ -1,120 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albert T Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-            color: #00ffcc;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: hidden;
-        }
-        header {
-            text-align: center;
-            padding: 100px 20px 30px;
-            font-size: 2.5rem;
-            text-shadow: 0 0 10px #00ffcc;
-        }
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: black;
-            z-index: -1;
-            pointer-events: none;
-        }
-        main {
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-        section {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border: 1px solid #00ffcc;
-            border-radius: 12px;
-            box-shadow: 0 0 20px #00ffcc33;
-            transition: transform 0.3s ease;
-        }
-        section:hover {
-            transform: scale(1.02);
-        }
-        h2 {
-            color: #ffffff;
-            margin-bottom: 10px;
-            text-shadow: 0 0 5px #00ffcc;
-        }
-        p {
-            color: #b2fff0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zion Terminal // Albert T Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    :root {
+      --matrix-color: #0f0;
+      --matrix-glow: rgba(0, 255, 0, 0.7);
+      --bg-color: #000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--matrix-color);
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Scanlines specific for Matrix */
+    .scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.2)
+      );
+      background-size: 100% 4px;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%);
+      z-index: 998;
+      pointer-events: none;
+    }
+
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    header {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      text-align: center;
+      padding: 60px 20px 40px;
+      text-transform: uppercase;
+    }
+    
+    .typewriter-title {
+      font-size: 3rem;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0 auto;
+      border-right: .15em solid var(--matrix-color); /* The cursor */
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+      text-shadow: 0 0 10px var(--matrix-glow);
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--matrix-color); }
+    }
+
+    main {
+      position: relative;
+      z-index: 10;
+      padding: 0 20px 60px;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      width: 100%;
+    }
+
+    .terminal-window {
+      background: rgba(0, 5, 0, 0.85);
+      border: 1px solid var(--matrix-color);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    .terminal-window:hover {
+      box-shadow: 0 0 25px rgba(0, 255, 0, 0.4), inset 0 0 15px rgba(0, 255, 0, 0.2);
+    }
+
+    .terminal-header {
+      background: var(--matrix-color);
+      color: #000;
+      padding: 5px 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    .terminal-header span {
+      display: flex;
+      gap: 5px;
+    }
+    .status-dot {
+      width: 12px; height: 12px;
+      background: #000;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    .status-dot:hover { opacity: 1; }
+
+    .terminal-body {
+      padding: 25px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2::before {
+      content: ">";
+    }
+
+    p, ul {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+    li::before {
+      content: "[-]";
+      color: var(--matrix-color);
+      margin-right: 10px;
+    }
+
+    .link-btn {
+      display: inline-block;
+      margin-top: 15px;
+      color: #000;
+      background-color: var(--matrix-color);
+      padding: 5px 15px;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: 0.2s;
+    }
+    .link-btn:hover {
+      background-color: #fff;
+      box-shadow: 0 0 10px #fff;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Staggered animation delays */
+    .terminal-window:nth-child(1) { animation-delay: 2s; }
+    .terminal-window:nth-child(2) { animation-delay: 2.3s; }
+    .terminal-window:nth-child(3) { animation-delay: 2.6s; }
+
+  </style>
 </head>
 <body>
-<canvas class="matrix-bg"></canvas>
+
+<canvas class="matrix-bg" id="c"></canvas>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
 <header>
-    Bienvenido a mi universo digital
+  <h1 class="typewriter-title">M:\> Wake up, user...</h1>
 </header>
+
 <main>
-    <section>
-        <h2>Sobre mí</h2>
-        <p>Desarrollador web con pasión por los efectos visuales y la estética cinematográfica.</p>
-    </section>
-    <section>
-        <h2>Proyectos</h2>
-        <p>- Gestor de citas para peluquerías<br>- Videojuego Tower Defense<br>- Webs con temática hacker y tuning</p>
-    </section>
-    <section>
-        <h2>Contacto</h2>
-        <p>Email: albert@ejemplo.com</p>
-    </section>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div>sys.about.exe</div>
+      <span><div class="status-dot"></div><div class="status-dot"></div></span>
+    </div>
+    <div class="terminal-body" id="about-text">
+      <h2>IDENTIFICACIÓN</h2>
+      <p>Desarrollador web especializado en la creación de interfaces profundas, sistemas oscuros y estética cinematográfica. Mi código fluye como la información en la red, optimizado, rápido y letal.</p>
+    </div>
+  </div>
+
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div>sys.projects.dat</div>
+      <span><div class="status-dot"></div><div class="status-dot"></div></span>
+    </div>
+    <div class="terminal-body">
+      <h2>REGISTROS DE SISTEMA</h2>
+      <ul>
+        <li>Gestor de citas para peluquerías [Acceso Autorizado]</li>
+        <li>Videojuego Tower Defense [En Desarrollo]</li>
+        <li>Webs con temática hacker y tuning [Archivados]</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div>sys.contact.cfg</div>
+      <span><div class="status-dot"></div><div class="status-dot"></div></span>
+    </div>
+    <div class="terminal-body">
+      <h2>ENLACE DE EXTRACCIÓN</h2>
+      <p>Si quieres salir de la matriz, usa esta línea segura de comunicación:</p>
+      <a href="#" class="link-btn">albert@thematrix.dev</a>
+    </div>
+  </div>
 </main>
 
 <script>
-    const canvas = document.querySelector(".matrix-bg");
-    const ctx = canvas.getContext("2d");
+  // Matrix Code Rain Effect with Parallax/Multiple canvas layers style merged into one for performance
+  const c = document.getElementById("c");
+  const ctx = c.getContext("2d", { alpha: false });
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  // Make canvas full screen
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
 
-    const katakana = "アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン";
-    const letters = katakana.split("");
+  const katakana = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789@#$%&*";
+  const charset = katakana.split("");
 
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = new Array(Math.floor(columns)).fill(1);
+  // Define layers to create depth
+  const layers = [
+    { size: 12, speed: 1.0, color: "rgba(0, 150, 0, 0.4)", columns: 0, drops: [] }, // Back (smallest, darkest, slowest)
+    { size: 16, speed: 1.5, color: "rgba(0, 200, 0, 0.6)", columns: 0, drops: [] }, // Mid
+    { size: 22, speed: 2.5, color: "rgba(0, 255, 0, 0.9)", columns: 0, drops: [] }  // Front (biggest, brightest, fastest)
+  ];
 
-    function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#00ffcc";
-        ctx.font = fontSize + "px monospace";
-        for (let i = 0; i < drops.length; i++) {
-            const text = letters[Math.floor(Math.random() * letters.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-
-            drops[i]++;
-        }
-    }
-    setInterval(draw, 33);
-
-    window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  function initLayers() {
+    layers.forEach(layer => {
+      layer.columns = c.width / layer.size;
+      layer.drops = [];
+      for(let x = 0; x < layer.columns; x++) {
+        layer.drops[x] = Math.random() * -100; // Start above screen randomly
+      }
     });
+  }
+
+  window.addEventListener('resize', () => {
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    initLayers();
+  });
+
+  initLayers();
+
+  function draw() {
+    // Semi-transparent black background to create trails
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillRect(0, 0, c.width, c.height);
+
+    layers.forEach(layer => {
+      ctx.font = layer.size + "px 'Share Tech Mono'";
+      
+      for(let i = 0; i < layer.drops.length; i++) {
+        const text = charset[Math.floor(Math.random() * charset.length)];
+        
+        // Draw character
+        ctx.fillStyle = layer.color;
+        // The front layer sometimes gets a bright white head text
+        if (layer.size === 22 && Math.random() > 0.8) {
+          ctx.fillStyle = "#fff";
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = "#0f0";
+        } else {
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.fillText(text, i * layer.size, layer.drops[i] * layer.size);
+
+        // Reset drop
+        if(layer.drops[i] * layer.size > c.height && Math.random() > 0.975) {
+          layer.drops[i] = 0;
+        }
+
+        // Increment Y coord based on speed
+        layer.drops[i] += layer.speed * 0.5;
+      }
+    });
+  }
+
+  // Animation Loop
+  let fps = 30; // Control speed
+  let now;
+  let then = Date.now();
+  let interval = 1000/fps;
+  let delta;
+
+  setInterval(draw, 33);
 </script>
+
 </body>
 </html>
