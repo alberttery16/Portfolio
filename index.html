@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alberttery16 - Interactive Portfolio</title>
+  <title>Alberttery16 - Portfolio</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <meta name="description" content="Portafolio de Albert Tery, desarrollador web premium y ciberseguridad.">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <!-- Lenis for smooth scrolling -->
-  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script> 
-  
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
 
-  <!-- CUSTOM CURSOR -->
+  <!-- CURSOR PERSONALIZADO -->
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
 
-  <!-- DEV CONSOLE EASTER EGG -->
+  <!-- CONSOLA DEV EASTER EGG -->
   <div class="dev-console" id="dev-console">
     <div id="dev-output">SISTEMA CIBERNÉTICO INICIADO. Escribe 'help' para ver comandos.</div>
     <div class="dev-input-wrapper">
@@ -45,7 +50,7 @@
   <main id="smooth-wrapper">
     <div id="smooth-content">
 
-      <!-- HERO 3D SECTION -->
+      <!-- PORTADA -->
       <section class="hero-3d interactive">
         <video autoplay muted loop playsinline class="hero-video-bg">
           <source src="video.mp4" type="video/mp4">
@@ -57,41 +62,40 @@
         </div>
       </section>
 
-      <!-- ABOUT SECTION (Scroll Reveal Text) -->
+      <!-- SOBRE MI -->
       <section class="about-section">
         <div class="about-container">
           <h2 class="hollow-title">INITIALIZE_PROFILE</h2>
           <p class="reveal-text">
-            Soy un desarrollador apasionado por crear experiencias digitales que desafían los estándares. 
-            Me enfoco en la ciberseguridad, el rendimiento extremo y el diseño interactivo de vanguardia. 
-            No construyo simples páginas web, desarrollo inmersiones tecnológicas diseñadas para impresionar 
+            Soy un desarrollador apasionado por crear experiencias digitales que desafían los estándares.
+            Me enfoco en la ciberseguridad, el rendimiento extremo y el diseño interactivo de vanguardia.
+            No construyo simples páginas web, desarrollo inmersiones tecnológicas diseñadas para impresionar
             desde la primera línea de código.
           </p>
           <div class="secret-hint" title="SYS_OVERRIDE">SEQ: ↑ ↑ ↓ ↓ ← → ← → B A</div>
           <button class="hologram-trigger cv-large" id="cv-trigger">[ EXTRAER_CV ]</button>
-          
-          <!-- HOLOGRAM CV -->
+
+          <!-- HOLOGRAMA CV -->
           <div class="hologram-overlay" id="hologram-overlay">
             <div class="hologram-card" id="hologram-card">
               <div class="hologram-glare"></div>
-              <h3>ALBERT TERY</h3>
+              <h3>ALBERT EDUARDO GRIGORE STEFAN</h3>
               <p>Desarrollador Full-Stack</p>
               <br>
-              <p>> Nivel Seguridad: MAX</p>
-              <p>> Especialidad: JS / CSS / UX</p>
+              <p>> Bachillerato Científico</p>
+              <p>> Grado Superior DAW</p>
             </div>
-            <button class="close-hologram" id="close-hologram">CERRAR_ENLACE</button>
+            <button class="close-hologram" id="close-hologram">CERRAR</button>
           </div>
         </div>
       </section>
 
-      <!-- HORIZONTAL SCROLL PROJECTS -->
+      <!-- PROYECTOS -->
       <section class="horizontal-projects-section">
-        <h2 class="hollow-title fixed-bg-title">DATABANKS</h2>
         <div class="horizontal-scroll-container">
-          
+          <h2 class="hollow-title big-hollow text-center">PROYECTOS</h2>
           <div class="panels-wrapper">
-            
+
             <!-- PANEL 1 -->
             <div class="project-panel">
               <div class="panel-image iframe-thumbnail">
@@ -101,7 +105,8 @@
                 <div class="panel-number">01</div>
                 <h3 class="panel-title">COM_GAMES</h3>
                 <p class="panel-desc">Entorno neón inmersivo y lógica interactiva de entretenimiento clásico.</p>
-                <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+                <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn">ACCEDER <i
+                    class="fas fa-arrow-right"></i></a>
               </div>
             </div>
 
@@ -114,7 +119,8 @@
                 <div class="panel-number">02</div>
                 <h3 class="panel-title">COM_STORE</h3>
                 <p class="panel-desc">Arquitectura de menús complejos y flujo de comercio escalable.</p>
-                <a href="https://alberttery16.github.io/Tienda/" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+                <a href="https://alberttery16.github.io/Tienda/" target="_blank" class="panel-btn">ACCEDER <i
+                    class="fas fa-arrow-right"></i></a>
               </div>
             </div>
 
@@ -127,11 +133,11 @@
                 <div class="panel-number">03</div>
                 <h3 class="panel-title">COM_IDEAS</h3>
                 <p class="panel-desc">Dashboard hiper-limpio para gestión y almacenamiento de ideas lógicas.</p>
-                <a href="ideas.html" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+                <a href="ideas.html" target="_blank" class="panel-btn">ACCEDER <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
 
-             <!-- PANEL 4 (Efectos) -->
+            <!-- PANEL 4 (Efectos) -->
             <div class="project-panel">
               <div class="panel-image iframe-thumbnail">
                 <iframe src="efectos/matrix.html" tabindex="-1" title="Matrix Preview"></iframe>
@@ -140,11 +146,12 @@
                 <div class="panel-number">04</div>
                 <h3 class="panel-title">VFX_MATRIX</h3>
                 <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
-                <a href="efectos/matrix.html" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+                <a href="efectos/matrix.html" target="_blank" class="panel-btn">ACCEDER <i
+                    class="fas fa-arrow-right"></i></a>
               </div>
             </div>
 
-             <!-- PANEL 5 (Efectos) -->
+            <!-- PANEL 5 (Efectos) -->
             <div class="project-panel">
               <div class="panel-image iframe-thumbnail">
                 <iframe src="efectos/cyberpunk.html" tabindex="-1" title="Cyberpunk Preview"></iframe>
@@ -153,11 +160,12 @@
                 <div class="panel-number">05</div>
                 <h3 class="panel-title">VFX_CYBERPUNK</h3>
                 <p class="panel-desc">Arte generativo de sombras de neón inspirado en distopías Sci-Fi.</p>
-                <a href="efectos/cyberpunk.html" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+                <a href="efectos/cyberpunk.html" target="_blank" class="panel-btn">ACCEDER <i
+                    class="fas fa-arrow-right"></i></a>
               </div>
             </div>
 
-             <!-- PANEL 6 (Efectos) -->
+            <!-- PANEL 6 (Efectos) -->
             <div class="project-panel">
               <div class="panel-image iframe-thumbnail">
                 <iframe src="efectos/prisma.html" tabindex="-1" title="Prisma Preview"></iframe>
@@ -166,7 +174,8 @@
                 <div class="panel-number">06</div>
                 <h3 class="panel-title">VFX_PRISMA</h3>
                 <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
-                <a href="efectos/prisma.html" target="_blank" class="panel-btn">ACCEDER_DATOS <i class="fas fa-arrow-right"></i></a>
+                <a href="efectos/prisma.html" target="_blank" class="panel-btn">ACCEDER <i
+                    class="fas fa-arrow-right"></i></a>
               </div>
             </div>
 
@@ -174,18 +183,61 @@
         </div><!-- /horizontal-scroll-container -->
       </section>
 
+      <!-- TECH STACK -->
+      <section class="tech-stack-section">
+        <h2 class="hollow-title small-hollow text-center">TECH_STACK</h2>
+        <div class="tech-container">
+          <div class="tech-orbit">
+            <div class="tech-node interactive-node" data-tooltip="CORE: PHP/Laravel - PHP/Symfony"><i class="fab fa-laravel"></i></div>
+            <div class="tech-node interactive-node" data-tooltip="CORE: JavaScript (ES6+) - TypeScript"><i class="fab fa-js-square"></i></div>
+            <div class="tech-node interactive-node" data-tooltip="ANIM: GSAP 3"><i class="fas fa-magic"></i></div>
+            <div class="tech-node interactive-node" data-tooltip="SEC: OWASP Protocols"><i class="fas fa-user-shield"></i></div>
+            <div class="tech-node interactive-node" data-tooltip="SYSTEMS: Linux/Bash - Windows"><i class="fab fa-linux"></i></div>
+            <div class="tech-node interactive-node" data-tooltip="DATABASES: SQL/NoSQL"><i class="fas fa-database"></i></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICIOS B2B -->
+      <section class="b2b-services-section">
+        <h2 class="hollow-title small-hollow text-center">CORP_MODULES</h2>
+        <div class="bento-grid">
+          <div class="bento-item bento-large">
+            <div class="bento-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>CIBERSEGURIDAD B2B</h3>
+            <p>Auditorías, pentesting e integración de protocolos de seguridad impenetrables para infraestructura
+              corporativa.</p>
+          </div>
+          <div class="bento-item">
+            <div class="bento-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <h3>RENDIMIENTO EXTREMO</h3>
+            <p>Refactorización y arquitectura orientada a la máxima velocidad y retención.</p>
+          </div>
+          <div class="bento-item">
+            <div class="bento-icon"><i class="fas fa-network-wired"></i></div>
+            <h3>DASHBOARDS CORP</h3>
+            <p>Sistemas de control logística, gestión de datos e intranets seguras.</p>
+          </div>
+          <div class="bento-item bento-wide">
+            <div class="bento-icon"><i class="fas fa-shopping-cart"></i></div>
+            <h3>E-COMMERCE HIGH-END</h3>
+            <p>Soluciones transaccionales inmersivas y arquitecturas escalables preparadas para ultra-rendimiento.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- NEURAL DECRYPT MINIGAME -->
       <section class="minigame-section">
         <h2 class="hollow-title small-hollow text-center">NEURAL_DECRYPT</h2>
         <div class="minigame-container" id="minigame-container">
-          
+
           <div class="game-area">
             <div class="game-ui">
               <h3 class="game-status" id="game-status">SISTEMA BLOQUEADO</h3>
               <p class="game-instructions">Memoriza e intercepta la secuencia de nodos infinitamente.</p>
               <div class="game-score">Nivel: <span id="layer-count">0</span></div>
             </div>
-            
+
             <div class="simon-game" id="simon-game">
               <div class="simon-grid">
                 <div class="simon-node" data-color="1" id="node-1"></div>
@@ -193,7 +245,7 @@
                 <div class="simon-node" data-color="3" id="node-3"></div>
                 <div class="simon-node" data-color="4" id="node-4"></div>
               </div>
-              <button class="start-hack-btn" id="start-hack-btn">INIT_SEQ</button>
+              <button class="start-hack-btn" id="start-hack-btn">INICIAR</button>
             </div>
           </div>
 
@@ -206,10 +258,40 @@
 
         </div>
       </section>
+      
+      <!-- SECURE B2B CONTACT -->
+      <section class="secure-contact-section">
+        <h2 class="hollow-title small-hollow text-center">SECURE_COMMS</h2>
+        <div class="terminal-form-wrapper">
+          <div class="terminal-header">
+            <div class="term-btn red"></div>
+            <div class="term-btn yellow"></div>
+            <div class="term-btn green"></div>
+            <span class="term-title">root@alberttery16:~ /contact_protocol</span>
+          </div>
+          <form id="b2b-contact-form" class="terminal-body" onsubmit="event.preventDefault(); initiateSecureComms();">
+            <p class="term-prompt">> INICIAR_MENSAJE</p>
+            <div class="input-group">
+              <label for="corp_name">Corp_Name:</label>
+              <input type="text" id="corp_name" required placeholder="Nombre de empresa...">
+            </div>
+            <div class="input-group">
+              <label for="corp_email">Target_Email:</label>
+              <input type="email" id="corp_email" required placeholder="email@empresa.com">
+            </div>
+            <div class="input-group">
+              <label for="corp_req">Payload_Data:</label>
+              <textarea id="corp_req" rows="3" required placeholder="Describe el objetivo estratégico..."></textarea>
+            </div>
+            <button type="submit" class="hack-submit-btn">[ ENVIAR_DATOS ]</button>
+            <div id="form-status" class="form-status-msg"></div>
+          </form>
+        </div>
+      </section>
 
       <!-- FOOTER -->
       <footer class="cyber-footer">
-        <h2 class="hollow-title small-hollow">SOCIAL_LINKS ESTABLECIDOS</h2>
+        <h2 class="hollow-title small-hollow">SOCIAL_LINKS</h2>
         <div class="social-grid">
           <a href="https://instagram.com/alberttery16" target="_blank" class="social-btn">
             <span class="social-bg"></span>
@@ -234,4 +316,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>

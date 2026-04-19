@@ -52,7 +52,7 @@ function finishBoot() {
 // --- CUSTOM CURSOR ---
 const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
-const interactiveHoverElements = document.querySelectorAll('a, .project-panel, .hero-title, .social-btn');
+const interactiveHoverElements = document.querySelectorAll('a, .project-panel, .hero-title, .social-btn, .bento-item, .tech-node, input, textarea');
 
 let mouseX = 0, mouseY = 0;
 let fX = 0, fY = 0;
@@ -135,14 +135,16 @@ if(revealTextContainer) {
 // --- HORIZONTAL SCROLL FOR PROJECTS ---
 gsap.registerPlugin(ScrollTrigger);
 
+const scrollContainer = document.querySelector('.horizontal-scroll-container');
 const panelsWrapper = document.querySelector('.panels-wrapper');
-if(panelsWrapper) {
+
+if(scrollContainer && panelsWrapper) {
   function getScrollAmount() {
-    let panelsWidth = panelsWrapper.scrollWidth;
-    return -(panelsWidth - window.innerWidth + window.innerWidth * 0.2); // extra padding
+    let scrollWidth = scrollContainer.scrollWidth;
+    return -(scrollWidth - window.innerWidth);
   }
 
-  const tween = gsap.to(panelsWrapper, {
+  const tween = gsap.to(scrollContainer, {
     x: getScrollAmount,
     ease: "none"
   });
@@ -150,7 +152,7 @@ if(panelsWrapper) {
   ScrollTrigger.create({
     trigger: ".horizontal-projects-section",
     start: "top top",
-    end: () => `+=${getScrollAmount() * -1}`,
+    end: () => `+=${scrollContainer.scrollWidth}`,
     pin: true,
     animation: tween,
     scrub: 1,
@@ -365,7 +367,7 @@ function playBeep(freq = 600, type = 'sine', duration = 0.05, vol = 0.1) {
 }
 
 document.body.addEventListener('click', () => { userHasInteracted = true; });
-document.querySelectorAll('a, button, .project-panel, .simon-node').forEach(el => {
+document.querySelectorAll('a, button, .project-panel, .simon-node, .bento-item, .tech-node').forEach(el => {
   el.addEventListener('mouseenter', () => playBeep(800, 'sine', 0.05, 0.05));
   el.addEventListener('click', () => playBeep(1200, 'square', 0.1, 0.1));
 });
@@ -474,3 +476,35 @@ function activateKonami() {
   alert("SUPERUSER MODE ACTIVATED: Sistemas de Alerta Activos.");
 }
 
+// 5. B2B SECURE COMMS FORM
+window.initiateSecureComms = function() {
+  const statusMsg = document.getElementById('form-status');
+  const btn = document.querySelector('.hack-submit-btn');
+  const form = document.getElementById('b2b-contact-form');
+  
+  if(!statusMsg || !btn) return;
+  
+  btn.disabled = true;
+  btn.innerText = "[ ENCRIPTANDO_PAYLOAD... ]";
+  statusMsg.style.color = "var(--color-primary)";
+  statusMsg.innerText = "> Estableciendo conexión segura vía túnel RSA-4096...";
+  if(typeof playBeep === 'function') playBeep(300, 'sawtooth', 0.5);
+  
+  setTimeout(() => {
+    statusMsg.innerText += "\n> Bypass de firewall completado.";
+    if(typeof playBeep === 'function') playBeep(400, 'sawtooth', 0.2);
+  }, 1000);
+  
+  setTimeout(() => {
+    statusMsg.innerText += "\n> Transmitiendo paquete de datos...";
+    if(typeof playBeep === 'function') playBeep(500, 'sawtooth', 0.2);
+  }, 2000);
+  
+  setTimeout(() => {
+    statusMsg.style.color = "#0f0";
+    statusMsg.innerText = "> SYS_SUCCESS: El paquete corporativo ha sido entregado.\n> Me pondré en contacto en breve.";
+    btn.innerText = "[ TRANSMISIÓN_EXITOSA ]";
+    if(typeof playBeep === 'function') playBeep(800, 'sine', 0.8);
+    form.reset();
+  }, 3500);
+};
