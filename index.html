@@ -186,14 +186,25 @@
       <!-- TECH STACK -->
       <section class="tech-stack-section">
         <h2 class="hollow-title small-hollow text-center">TECH_STACK</h2>
-        <div class="tech-container">
-          <div class="tech-orbit">
-            <div class="tech-node interactive-node" data-tooltip="CORE: PHP/Laravel - PHP/Symfony"><i class="fab fa-laravel"></i></div>
-            <div class="tech-node interactive-node" data-tooltip="CORE: JavaScript (ES6+) - TypeScript"><i class="fab fa-js-square"></i></div>
-            <div class="tech-node interactive-node" data-tooltip="ANIM: GSAP 3"><i class="fas fa-magic"></i></div>
-            <div class="tech-node interactive-node" data-tooltip="SEC: OWASP Protocols"><i class="fas fa-user-shield"></i></div>
-            <div class="tech-node interactive-node" data-tooltip="SYSTEMS: Linux/Bash - Windows"><i class="fab fa-linux"></i></div>
-            <div class="tech-node interactive-node" data-tooltip="DATABASES: SQL/NoSQL"><i class="fas fa-database"></i></div>
+        <div class="revolver-wrapper">
+          <div class="tech-container">
+            <div class="tech-orbit" id="tech-orbit">
+              <div class="tech-node interactive-node" data-tooltip="CORE PHP: Laravel - Symfony"><i class="fab fa-laravel"></i></div>
+              <div class="tech-node interactive-node" data-tooltip="CORE JS: JavaScript (ES6+) - JAVA - TypeScript"><i class="fab fa-js-square"></i></div>
+              <div class="tech-node interactive-node" data-tooltip="ANIMATIONS: GSAP 3"><i class="fas fa-magic"></i></div>
+              <div class="tech-node interactive-node" data-tooltip="SECURITY: OWASP Protocols"><i class="fas fa-user-shield"></i></div>
+              <div class="tech-node interactive-node" data-tooltip="SYSTEMS: Linux/Bash - Windows"><i class="fab fa-linux"></i></div>
+              <div class="tech-node interactive-node" data-tooltip="DATABASES: SQL/NoSQL"><i class="fas fa-database"></i></div>
+            </div>
+            
+            <button class="spin-trigger-btn" id="spin-btn">NEXT</button>
+          </div>
+          
+          <div class="tech-info-panel" id="tech-info-panel">
+            <div class="tech-info-content">
+              <h3 id="tech-info-title">SISTEMA EN ESPERA</h3>
+              <p id="tech-info-desc">Pulsa NEXT para ver más información sobre <br>las tecnologías que utilizo.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -273,15 +284,15 @@
             <p class="term-prompt">> INICIAR_MENSAJE</p>
             <div class="input-group">
               <label for="corp_name">Corp_Name:</label>
-              <input type="text" id="corp_name" required placeholder="Nombre de empresa...">
+              <input type="text" id="corp_name" name="corp_name" required placeholder="Nombre de empresa...">
             </div>
             <div class="input-group">
               <label for="corp_email">Target_Email:</label>
-              <input type="email" id="corp_email" required placeholder="email@empresa.com">
+              <input type="email" id="corp_email" name="corp_email" required placeholder="email@empresa.com">
             </div>
             <div class="input-group">
               <label for="corp_req">Payload_Data:</label>
-              <textarea id="corp_req" rows="3" required placeholder="Describe el objetivo estratégico..."></textarea>
+              <textarea id="corp_req" name="corp_req" rows="3" required placeholder="Describe el objetivo estratégico..."></textarea>
             </div>
             <button type="submit" class="hack-submit-btn">[ ENVIAR_DATOS ]</button>
             <div id="form-status" class="form-status-msg"></div>

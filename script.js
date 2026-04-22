@@ -495,16 +495,114 @@ window.initiateSecureComms = function() {
     if(typeof playBeep === 'function') playBeep(400, 'sawtooth', 0.2);
   }, 1000);
   
-  setTimeout(() => {
+  setTimeout(async () => {
     statusMsg.innerText += "\n> Transmitiendo paquete de datos...";
     if(typeof playBeep === 'function') playBeep(500, 'sawtooth', 0.2);
+    
+    try {
+      const formData = new FormData(form);
+      // FORMULARIO DE CONTACTO MEDIANTE LA HERRAMIENTA FORMSPREE
+      const response = await fetch("https://formspree.io/f/xbdqzenr", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        statusMsg.style.color = "#0f0";
+        statusMsg.innerText += "\n> SYS_SUCCESS: El paquete corporativo ha sido entregado.\n> Me pondré en contacto en breve.";
+        btn.innerText = "[ TRANSMISIÓN_EXITOSA ]";
+        if(typeof playBeep === 'function') playBeep(800, 'sine', 0.8);
+        form.reset();
+        setTimeout(() => { btn.disabled = false; btn.innerText = "[ ENVIAR_DATOS ]"; }, 5000);
+      } else {
+        throw new Error("API devuelta con error");
+      }
+    } catch (error) {
+      statusMsg.style.color = "#f00";
+      statusMsg.innerText += "\n> SYS_ERROR: Destino inalcanzable o bloqueado. Intenta contacto manual por Email.";
+      btn.innerText = "[ REINTENTAR ]";
+      btn.disabled = false;
+      if(typeof playBeep === 'function') playBeep(200, 'sawtooth', 1);
+    }
   }, 2000);
-  
-  setTimeout(() => {
-    statusMsg.style.color = "#0f0";
-    statusMsg.innerText = "> SYS_SUCCESS: El paquete corporativo ha sido entregado.\n> Me pondré en contacto en breve.";
-    btn.innerText = "[ TRANSMISIÓN_EXITOSA ]";
-    if(typeof playBeep === 'function') playBeep(800, 'sine', 0.8);
-    form.reset();
-  }, 3500);
 };
+
+// ==========================================
+// --- REVOLVER CYLINDER TECH STACK ---
+// ==========================================
+const techOrbit = document.getElementById('tech-orbit');
+const techNodes = document.querySelectorAll('.tech-node');
+const spinBtn = document.getElementById('spin-btn');
+const techInfoTitle = document.getElementById('tech-info-title');
+const techInfoDesc = document.getElementById('tech-info-desc');
+
+if (techOrbit && techNodes.length > 0 && spinBtn) {
+  const radius = 140; // reduced slightly to fit 80px nodes in 400px container
+  const totalNodes = techNodes.length;
+  let currentRotation = 0;
+  let currentTechIndex = -1;
+  let isSpinning = false;
+  
+  // Initialize positions
+  techNodes.forEach((node, index) => {
+    const angle = (index / totalNodes) * (2 * Math.PI) - (Math.PI / 2); // Top is -90deg
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+    
+    node.style.left = `calc(50% + ${x}px)`;
+    node.style.top = `calc(50% + ${y}px)`;
+    node.style.transform = `translate(-50%, -50%) rotate(0deg)`;
+  });
+  
+  spinBtn.addEventListener('click', () => {
+    if(isSpinning) return;
+    isSpinning = true;
+    
+    // Remove active state
+    techNodes.forEach(n => n.classList.remove('active'));
+    
+    // Sequential selection
+    const stepAngle = 360 / totalNodes;
+    
+    // We increment index. First click goes to index 1 if we start assuming index 0 is top.
+    // If currentTechIndex is -1 (start), first target is 0. But 0 is already at top. 
+    // Let's just always rotate by stepAngle and highlight the new top.
+    currentTechIndex = (currentTechIndex === -1 ? 1 : currentTechIndex + 1) % totalNodes;
+    const targetIndex = currentTechIndex;
+    
+    // Instead of random huge spin, just advance by one node precisely
+    currentRotation = currentRotation - stepAngle;
+    
+    if(typeof playBeep === 'function') {
+      playBeep(600, 'square', 0.05, 0.05);
+      setTimeout(() => playBeep(800, 'square', 0.05, 0.05), 100);
+    }
+    
+    // Apply transforms directly (bypassing animation)
+    techOrbit.style.transform = `rotate(${currentRotation}deg)`;
+    techNodes.forEach(node => {
+      node.style.transform = `translate(-50%, -50%) rotate(${-currentRotation}deg)`;
+    });
+
+    const activeNode = techNodes[targetIndex];
+    activeNode.classList.add('active');
+    
+    const tooltipRaw = activeNode.getAttribute('data-tooltip') || "INFO: NO DATA";
+    const parts = tooltipRaw.split(':');
+    
+    if (parts.length > 1) {
+      techInfoTitle.innerText = parts[0].trim();
+      techInfoDesc.innerText = parts.slice(1).join(':').trim();
+    } else {
+      techInfoTitle.innerText = "TECH_NODE";
+      techInfoDesc.innerText = tooltipRaw;
+    }
+    
+    if(typeof playBeep === 'function') playBeep(1000, 'sine', 0.1);
+    isSpinning = false;
+  });
+}
+
