@@ -1207,3 +1207,56 @@ body.konami-mode .hero-video-bg {
   margin-top: 10px;
   white-space: pre-wrap;
 }
+
+/* ==========================================
+   --- RESPONSIVE MOBILE ADJUSTMENTS ---
+   ========================================== */
+@media (max-width: 768px) {
+  /* Disable custom cursor */
+  .cursor, .cursor-follower { display: none !important; }
+  * { cursor: auto !important; }
+
+  /* Typography */
+  .hollow-title { font-size: 2rem; }
+  .small-hollow { font-size: 1.5rem; }
+
+  /* Hero Section */
+  .hero-title { font-size: clamp(1.5rem, 10vw, 4rem); word-break: break-word; }
+  .hero-subtitle { font-size: 0.7rem; letter-spacing: 2px; }
+
+  /* About Section */
+  .about-section { padding: 10vh 5vw; }
+  .reveal-text { font-size: 1.1rem; }
+  .hologram-card { width: 90vw; height: auto; padding: 20px; }
+
+  /* Horizontal Projects */
+  .fixed-bg-title { font-size: 4rem; top: 5%; }
+  .horizontal-scroll-container { gap: 40px; padding-left: 5vw; }
+  .panels-wrapper { gap: 40px; padding-right: 15vw; }
+  .project-panel { width: 85vw; max-width: 350px; height: 500px; }
+  .panel-title { font-size: 1.4rem; }
+
+  /* Revolver Cylinder */
+  .revolver-wrapper { gap: 10px; margin-top: 20px; }
+  .tech-container { transform: scale(0.7); margin-bottom: -50px; margin-top: -50px; }
+  .tech-info-panel { padding: 20px; min-height: auto; }
+
+  /* Bento Grid */
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-item { padding: 30px 20px; }
+
+  /* Minigame */
+  .minigame-container { padding: 20px; gap: 20px; }
+  .simon-grid { gap: 10px; }
+  .simon-node { width: 80px; height: 80px; }
+
+  /* Secure Comms Terminal */
+  .terminal-form-wrapper { margin-top: 30px; }
+  .term-prompt { font-size: 0.9rem; }
+
+  /* Footer */
+  .cyber-footer { padding: 50px 5vw 30px; }
+  .social-grid { flex-direction: column; gap: 15px; }
+  .social-btn { padding: 15px; justify-content: center; }
+  .footer-bar { flex-direction: column; text-align: center; gap: 15px; font-size: 0.7rem; }
+}
