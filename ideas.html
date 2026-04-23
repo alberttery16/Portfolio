@@ -48,7 +48,7 @@
       overflow-x: hidden;
     }
 
-    /* Ambient Background Effect */
+    /* Fondo animado */
     .ambient-bg {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -124,7 +124,7 @@
        background-color: rgba(0, 0, 0, 0.1);
     }
 
-    /* KANBAN BOARD */
+    /* Columnas Kanban */
     .board {
       display: flex;
       gap: 30px;
@@ -174,7 +174,7 @@
       background: rgba(0,0,0,0.1);
     }
 
-    /* Column Color Variations */
+    /* Colores por columna */
     .col-hoy .column-header { color: var(--accent-1); }
     .col-manana .column-header { color: var(--accent-2); }
     .col-semana .column-header { color: var(--accent-3); }
@@ -255,7 +255,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* MODERN MODAL */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -355,7 +355,7 @@
     .btn-cancel:hover { background: rgba(255,255,255,0.1); }
     .btn-save:hover { filter: brightness(1.2); }
 
-    /* Custom Scrollbar for columns */
+    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -439,7 +439,7 @@
 
 <script>
   const STORAGE_KEY = "ideasPorCategoriaPremium";
-  // Migrate old data if present to new key structure to avoid loss
+  // Migración de datos antiguos
   const OLD_STORAGE_KEY = "ideasPorCategoria";
   
   const categorias = {
@@ -520,7 +520,7 @@
     });
   }
 
-  /* MODAL LOGIC */
+  /* Modal */
   function openModal() {
     document.getElementById('ideaText').value = "";
     document.getElementById('ideaModal').classList.add('active');
@@ -551,7 +551,7 @@
     body.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  /* DRAG & DROP LOGIC */
+  /* Drag & Drop */
   function allowDrop(e) {
     e.preventDefault();
     e.currentTarget.classList.add("drag-over");

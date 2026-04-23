@@ -1,4 +1,4 @@
-// Inicialización de Smooth Scrolling (Lenis)
+// Smooth Scrolling
 const lenis = new Lenis({
   duration: 1.2,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -17,7 +17,7 @@ function raf(time) {
 }
 requestAnimationFrame(raf)
 
-// --- BOOT LOADER (PRELOADER) ---
+// Preloader
 const loaderCounter = document.querySelector('.loader-counter');
 const loaderText = document.querySelector('.loader-text');
 const loader = document.querySelector('.loader');
@@ -49,7 +49,7 @@ function finishBoot() {
     .from(".grid-floor", { opacity: 0, duration: 2 }, "-=1");
 }
 
-// --- CUSTOM CURSOR ---
+// Custom Cursor
 const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
 const interactiveHoverElements = document.querySelectorAll('a, .project-panel, .hero-title, .social-btn, .bento-item, .tech-node, input, textarea');
@@ -80,7 +80,7 @@ interactiveHoverElements.forEach(el => {
   });
 });
 
-// MAGNETIC HERO TITLE
+// Hero Effects
 const heroTitle = document.querySelector('.hero-title');
 if(heroTitle) {
   heroTitle.addEventListener('mousemove', (e) => {
@@ -101,18 +101,30 @@ if(heroTitle) {
   });
 }
 
-// --- TEXT REVEAL LOGIC (Manual Split Text) ---
+// Text Reveal
 const revealTextContainer = document.querySelector('.reveal-text');
 if(revealTextContainer) {
-  // Split words manually since we don't have SplitText premium plugin
-  const words = revealTextContainer.innerText.split(' ');
+  // Save innerHTML to preserve <br>
+  const originalHTML = revealTextContainer.innerHTML;
   revealTextContainer.innerHTML = '';
   
-  words.forEach(word => {
-    const span = document.createElement('span');
-    span.classList.add('word');
-    span.innerText = word;
-    revealTextContainer.appendChild(span);
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = originalHTML;
+  
+  tempDiv.childNodes.forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const words = node.textContent.split(/\s+/);
+      words.forEach(word => {
+        if (word.trim() !== '') {
+          const span = document.createElement('span');
+          span.classList.add('word');
+          span.innerText = word;
+          revealTextContainer.appendChild(span);
+        }
+      });
+    } else {
+      revealTextContainer.appendChild(node.cloneNode(true));
+    }
   });
 
   const wordElements = document.querySelectorAll('.word');
@@ -130,37 +142,114 @@ if(revealTextContainer) {
     textShadow: "0 0 10px rgba(255,255,255,0.8)",
     stagger: 0.1
   });
-}
 
-// --- HORIZONTAL SCROLL FOR PROJECTS ---
-gsap.registerPlugin(ScrollTrigger);
-
-const scrollContainer = document.querySelector('.horizontal-scroll-container');
-const panelsWrapper = document.querySelector('.panels-wrapper');
-
-if(scrollContainer && panelsWrapper) {
-  function getScrollAmount() {
-    let scrollWidth = scrollContainer.scrollWidth;
-    return -(scrollWidth - window.innerWidth);
-  }
-
-  const tween = gsap.to(scrollContainer, {
-    x: getScrollAmount,
+  // Parallax para los fondos dinámicos (Aurora)
+  gsap.to('.blob-1', {
+    scrollTrigger: { scrub: 1.5 },
+    y: 300,
+    ease: "none"
+  });
+  
+  gsap.to('.blob-2', {
+    scrollTrigger: { scrub: 2 },
+    y: -250,
+    x: -100,
     ease: "none"
   });
 
-  ScrollTrigger.create({
-    trigger: ".horizontal-projects-section",
-    start: "top top",
-    end: () => `+=${scrollContainer.scrollWidth}`,
-    pin: true,
-    animation: tween,
-    scrub: 1,
-    invalidateOnRefresh: true
+  gsap.to('.blob-3', {
+    scrollTrigger: { scrub: 1 },
+    y: 150,
+    scale: 1.5,
+    ease: "none"
   });
 }
 
-// --- MINIGAME: NEURAL DECRYPT (Simon Says) ---
+// Apple Carousel Dots Logic & Infinite Auto-Scroll
+const appleCarousel = document.getElementById('apple-carousel');
+const carouselDots = document.querySelectorAll('#carousel-dots .dot');
+
+if(appleCarousel && carouselDots.length > 0) {
+  let currentIndex = 0;
+  const totalRealSlides = carouselDots.length;
+
+  // Clonar el primer slide al final para el efecto de bucle infinito
+  const firstSlideClone = appleCarousel.children[0].cloneNode(true);
+  appleCarousel.appendChild(firstSlideClone);
+
+  let isJumping = false;
+
+  const updateDots = () => {
+    if (isJumping) return;
+    
+    const slideWidth = appleCarousel.clientWidth;
+    const scrollPos = appleCarousel.scrollLeft;
+    let newIndex = Math.round(scrollPos / slideWidth);
+
+    // Si hemos llegado al clon (el último elemento simulando ser el primero)
+    if (newIndex >= totalRealSlides) {
+      isJumping = true;
+      // Desactivamos el smooth scrolling nativo temporalmente
+      appleCarousel.style.scrollBehavior = 'auto';
+      appleCarousel.style.scrollSnapType = 'none';
+      
+      // Saltamos instantáneamente al slide 0 real
+      appleCarousel.scrollTo({ left: 0, behavior: 'auto' });
+      
+      // Restauramos el comportamiento normal
+      setTimeout(() => {
+        appleCarousel.style.scrollBehavior = 'smooth';
+        appleCarousel.style.scrollSnapType = 'x mandatory';
+        isJumping = false;
+      }, 50);
+      
+      newIndex = 0;
+    }
+
+    currentIndex = newIndex;
+    
+    carouselDots.forEach((dot, index) => {
+      if(index === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  };
+
+  appleCarousel.addEventListener('scroll', updateDots);
+
+  let autoScrollInterval;
+
+  const startAutoScroll = () => {
+    if (autoScrollInterval) clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(() => {
+      currentIndex++;
+      const slideWidth = appleCarousel.clientWidth;
+      
+      appleCarousel.scrollTo({
+        left: currentIndex * slideWidth,
+        behavior: 'smooth'
+      });
+    }, 5000);
+  };
+
+  const stopAutoScroll = () => {
+    clearInterval(autoScrollInterval);
+  };
+
+  // Iniciar el auto-scroll
+  startAutoScroll();
+
+  // Pausar auto-scroll al interactuar y REANUDAR al dejar de interactuar
+  appleCarousel.addEventListener('mouseenter', stopAutoScroll);
+  appleCarousel.addEventListener('mouseleave', startAutoScroll);
+  appleCarousel.addEventListener('touchstart', stopAutoScroll, {passive: true});
+  appleCarousel.addEventListener('touchend', startAutoScroll);
+}
+
+// Minigame Logic
+const simonNodes = document.querySelectorAll('.simon-node');
 const startHackBtn = document.getElementById('start-hack-btn');
 const gameStatus = document.getElementById('game-status');
 const layerCountDisplay = document.getElementById('layer-count');
@@ -290,7 +379,7 @@ function gameOver() {
   }
 }
 
-// --- LEADERBOARD LOGIC ---
+// Ranking
 const leaderboardList = document.getElementById('leaderboard-list');
 const LEADERBOARD_KEY = 'neural_decrypt_leaderboard';
 
@@ -339,11 +428,8 @@ if(leaderboardList) {
   renderLeaderboard();
 }
 
-// ==========================================
-// --- 6 WOW FEATURES INCORPORATION ---
-// ==========================================
-
-// 1. SOUNDSCAPE (Web Audio API)
+// Animaciones y utilidades
+// 1. Audio
 let audioCtx;
 let userHasInteracted = false;
 
@@ -372,7 +458,7 @@ document.querySelectorAll('a, button, .project-panel, .simon-node, .bento-item, 
   el.addEventListener('click', () => playBeep(1200, 'square', 0.1, 0.1));
 });
 
-// 2. DEV CONSOLE (Easter Egg)
+// 2. Consola Dev
 const devConsole = document.getElementById('dev-console');
 const devInput = document.getElementById('dev-input');
 const devOutput = document.getElementById('dev-output');
@@ -399,7 +485,7 @@ if(devInput) {
       const response = document.createElement('div');
       
       if(cmd === 'help') {
-        response.textContent = "Comandos: theme red, theme cyan, download cv, clear, rm -rf /";
+        response.textContent = "Comandos: theme red, theme cyan, show cv, clear, rm -rf";
       } else if (cmd === 'theme red') {
         document.documentElement.style.setProperty('--color-primary', '#ff0000');
         response.textContent = "Tema cambiado a ROJO TÁCTICO.";
@@ -408,14 +494,29 @@ if(devInput) {
         response.textContent = "Tema restaurado.";
       } else if (cmd === 'clear') {
         devOutput.innerHTML = '';
-      } else if (cmd === 'download cv') {
+      } else if (cmd === 'show cv') {
         response.textContent = "INICIANDO DESCARGA HOLOGRÁFICA...";
         document.getElementById('hologram-overlay').classList.add('active');
         devConsole.classList.remove('active');
-      } else if (cmd === 'rm -rf /') {
-        response.textContent = "CRITICAL ERROR: SIMULANDO DESTRUCCIÓN DEL SISTEMA...";
+      } else if (cmd === 'rm -rf') {
+        response.textContent = "CRITICAL ERROR: PURGA DE SISTEMA INICIADA...";
         response.style.color = 'red';
-        setTimeout(() => document.body.style.display = 'none', 1000);
+        
+        let beeps = 0;
+        let beepInterval = setInterval(() => {
+          if (typeof playBeep === 'function') playBeep(200 + (beeps * 100), 'sawtooth', 0.1, 0.5);
+          beeps++;
+          if (beeps >= 6) clearInterval(beepInterval);
+        }, 250);
+
+        setTimeout(() => {
+           document.body.classList.add('system-destroyed');
+           
+           setTimeout(() => {
+             document.body.className = '';
+             document.body.innerHTML = '<div style="color:red;font-family:monospace;font-size:2rem;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;text-align:center;">[ KERNEL CRITICAL ERROR ]<br><br>SISTEMA DESTRUIDO.<br>POR FAVOR, REINICIA EL NAVEGADOR.</div>';
+           }, 2500);
+        }, 1500);
       } else {
         response.textContent = "Comando no reconocido.";
       }
@@ -425,7 +526,7 @@ if(devInput) {
   });
 }
 
-// 3. HOLOGRAM CV
+// 3. Holograma
 const cvTrigger = document.getElementById('cv-trigger');
 const hologramOverlay = document.getElementById('hologram-overlay');
 const closeHologram = document.getElementById('close-hologram');
@@ -454,7 +555,7 @@ if(hologramCard) {
   });
 }
 
-// 4. KONAMI CODE
+// 4. Comandos Secretos
 const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 let konamiPosition = 0;
 
@@ -476,7 +577,7 @@ function activateKonami() {
   alert("SUPERUSER MODE ACTIVATED: Sistemas de Alerta Activos.");
 }
 
-// 5. B2B SECURE COMMS FORM
+// 5. Formularios
 window.initiateSecureComms = function() {
   const statusMsg = document.getElementById('form-status');
   const btn = document.querySelector('.hack-submit-btn');
@@ -530,9 +631,7 @@ window.initiateSecureComms = function() {
   }, 2000);
 };
 
-// ==========================================
-// --- REVOLVER CYLINDER TECH STACK ---
-// ==========================================
+// Tech Stack Interactivo
 const techOrbit = document.getElementById('tech-orbit');
 const techNodes = document.querySelectorAll('.tech-node');
 const spinBtn = document.getElementById('spin-btn');

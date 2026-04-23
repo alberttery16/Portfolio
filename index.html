@@ -26,11 +26,11 @@
 
 <body>
 
-  <!-- CURSOR PERSONALIZADO -->
+  <!-- Cursor -->
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
 
-  <!-- CONSOLA DEV EASTER EGG -->
+  <!-- Consola Dev -->
   <div class="dev-console" id="dev-console">
     <div id="dev-output">SISTEMA CIBERNÉTICO INICIADO. Escribe 'help' para ver comandos.</div>
     <div class="dev-input-wrapper">
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <!-- LOADER -->
+  <!-- Loader -->
   <div class="loader">
     <div class="loader-content">
       <div class="loader-counter">0%</div>
@@ -47,10 +47,18 @@
     </div>
   </div>
 
+  <!-- Efectos Visuales Globales -->
+  <div class="noise-overlay"></div>
+  <div class="dynamic-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
   <main id="smooth-wrapper">
     <div id="smooth-content">
 
-      <!-- PORTADA -->
+      <!-- Hero -->
       <section class="hero-3d interactive">
         <video autoplay muted loop playsinline class="hero-video-bg">
           <source src="video.mp4" type="video/mp4">
@@ -62,20 +70,50 @@
         </div>
       </section>
 
-      <!-- SOBRE MI -->
+      <!-- Sobre mí -->
       <section class="about-section">
         <div class="about-container">
-          <h2 class="hollow-title">INITIALIZE_PROFILE</h2>
-          <p class="reveal-text">
-            Soy un desarrollador apasionado por crear experiencias digitales que desafían los estándares.
-            Me enfoco en la ciberseguridad, el rendimiento extremo y el diseño interactivo de vanguardia.
-            No construyo simples páginas web, desarrollo inmersiones tecnológicas diseñadas para impresionar
-            desde la primera línea de código.
-          </p>
-          <div class="secret-hint" title="SYS_OVERRIDE">SEQ: ↑ ↑ ↓ ↓ ← → ← → B A</div>
-          <button class="hologram-trigger cv-large" id="cv-trigger">[ EXTRAER_CV ]</button>
+          
+          <!-- Columna Texto -->
+          <div class="about-text">
+            <h2 class="hollow-title">INITIALIZE_PROFILE</h2>
+            <p class="reveal-text">
+              Hola, soy Albert y este es mi portfolio interactivo. <br>
+              Me considero un desarrollador apasionado por crear experiencias digitales que desafían los estándares.<br>
+              No construyo simples páginas web, desarrollo inmersiones tecnológicas diseñadas para impresionar
+              a cualquiera que entre en una de mis webs (contiene Easter Eggs 👀).
+            </p>
+            <div class="secret-hint" title="SYS_OVERRIDE">SEQ: ↑ ↑ ↓ ↓ ← → ← → B A</div>
+            <button class="hologram-trigger cv-large" id="cv-trigger">[ EXTRAER_CV ]</button>
+          </div>
 
-          <!-- HOLOGRAMA CV -->
+          <!-- Columna Carrusel -->
+          <div class="about-carousel">
+            <div class="apple-carousel" id="apple-carousel">
+               <div class="apple-slide glossy">
+                 <i class="fas fa-mobile-alt"></i>
+                 <h3>UI / UX Nativa</h3>
+                 <p>Interfaces fluidas que responden al toque como si fueran cristal real.</p>
+               </div>
+               <div class="apple-slide glossy">
+                 <i class="fas fa-fingerprint"></i>
+                 <h3>Ciberseguridad</h3>
+                 <p>Arquitectura sólida y blindada ante cualquier amenaza externa.</p>
+               </div>
+               <div class="apple-slide glossy">
+                 <i class="fas fa-tachometer-alt"></i>
+                 <h3>Ultra Rendimiento</h3>
+                 <p>Optimizaciones a nivel de milisegundo para retención extrema.</p>
+               </div>
+            </div>
+            <div class="carousel-dots" id="carousel-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <!-- Holograma CV -->
           <div class="hologram-overlay" id="hologram-overlay">
             <div class="hologram-card" id="hologram-card">
               <div class="hologram-glare"></div>
@@ -90,126 +128,167 @@
         </div>
       </section>
 
-      <!-- PROYECTOS -->
-      <section class="horizontal-projects-section">
-        <div class="horizontal-scroll-container">
-          <h2 class="hollow-title big-hollow text-center">PROYECTOS</h2>
-          <div class="panels-wrapper">
-
-            <!-- PANEL 1 -->
-            <div class="project-panel">
-              <div class="panel-image iframe-thumbnail">
-                <iframe src="https://alberttery16.github.io/juegos/" tabindex="-1" title="MiniJuegos Preview"></iframe>
-              </div>
-              <div class="panel-overlay">
-                <div class="panel-number">01</div>
-                <h3 class="panel-title">COM_GAMES</h3>
-                <p class="panel-desc">Entorno neón inmersivo y lógica interactiva de entretenimiento clásico.</p>
-                <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn">ACCEDER <i
-                    class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-
-            <!-- PANEL 2 -->
-            <div class="project-panel">
-              <div class="panel-image iframe-thumbnail">
-                <iframe src="https://alberttery16.github.io/Tienda/" tabindex="-1" title="Tienda Preview"></iframe>
-              </div>
-              <div class="panel-overlay">
-                <div class="panel-number">02</div>
-                <h3 class="panel-title">COM_STORE</h3>
-                <p class="panel-desc">Arquitectura de menús complejos y flujo de comercio escalable.</p>
-                <a href="https://alberttery16.github.io/Tienda/" target="_blank" class="panel-btn">ACCEDER <i
-                    class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-
-            <!-- PANEL 3 -->
-            <div class="project-panel">
-              <div class="panel-image iframe-thumbnail">
-                <iframe src="ideas.html" tabindex="-1" title="Ideas Preview"></iframe>
-              </div>
-              <div class="panel-overlay">
-                <div class="panel-number">03</div>
-                <h3 class="panel-title">COM_IDEAS</h3>
-                <p class="panel-desc">Dashboard hiper-limpio para gestión y almacenamiento de ideas lógicas.</p>
-                <a href="ideas.html" target="_blank" class="panel-btn">ACCEDER <i class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-
-            <!-- PANEL 4 (Efectos) -->
-            <div class="project-panel">
-              <div class="panel-image iframe-thumbnail">
-                <iframe src="efectos/matrix.html" tabindex="-1" title="Matrix Preview"></iframe>
-              </div>
-              <div class="panel-overlay">
-                <div class="panel-number">04</div>
-                <h3 class="panel-title">VFX_MATRIX</h3>
-                <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
-                <a href="efectos/matrix.html" target="_blank" class="panel-btn">ACCEDER <i
-                    class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-
-            <!-- PANEL 5 (Efectos) -->
-            <div class="project-panel">
-              <div class="panel-image iframe-thumbnail">
-                <iframe src="efectos/cyberpunk.html" tabindex="-1" title="Cyberpunk Preview"></iframe>
-              </div>
-              <div class="panel-overlay">
-                <div class="panel-number">05</div>
-                <h3 class="panel-title">VFX_CYBERPUNK</h3>
-                <p class="panel-desc">Arte generativo de sombras de neón inspirado en distopías Sci-Fi.</p>
-                <a href="efectos/cyberpunk.html" target="_blank" class="panel-btn">ACCEDER <i
-                    class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-
-            <!-- PANEL 6 (Efectos) -->
-            <div class="project-panel">
-              <div class="panel-image iframe-thumbnail">
-                <iframe src="efectos/prisma.html" tabindex="-1" title="Prisma Preview"></iframe>
-              </div>
-              <div class="panel-overlay">
-                <div class="panel-number">06</div>
-                <h3 class="panel-title">VFX_PRISMA</h3>
-                <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
-                <a href="efectos/prisma.html" target="_blank" class="panel-btn">ACCEDER <i
-                    class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-
-          </div><!-- /panels-wrapper -->
-        </div><!-- /horizontal-scroll-container -->
-      </section>
-
-      <!-- TECH STACK -->
-      <section class="tech-stack-section">
-        <h2 class="hollow-title small-hollow text-center">TECH_STACK</h2>
-        <div class="revolver-wrapper">
-          <div class="tech-container">
-            <div class="tech-orbit" id="tech-orbit">
-              <div class="tech-node interactive-node" data-tooltip="CORE PHP: Laravel - Symfony"><i class="fab fa-laravel"></i></div>
-              <div class="tech-node interactive-node" data-tooltip="CORE JS: JavaScript (ES6+) - JAVA - TypeScript"><i class="fab fa-js-square"></i></div>
-              <div class="tech-node interactive-node" data-tooltip="ANIMATIONS: GSAP 3"><i class="fas fa-magic"></i></div>
-              <div class="tech-node interactive-node" data-tooltip="SECURITY: OWASP Protocols"><i class="fas fa-user-shield"></i></div>
-              <div class="tech-node interactive-node" data-tooltip="SYSTEMS: Linux/Bash - Windows"><i class="fab fa-linux"></i></div>
-              <div class="tech-node interactive-node" data-tooltip="DATABASES: SQL/NoSQL"><i class="fas fa-database"></i></div>
-            </div>
-            
-            <button class="spin-trigger-btn" id="spin-btn">NEXT</button>
-          </div>
+      <!-- Proyectos y Tech Stack -->
+      <section class="showcase-section">
+        <div class="showcase-container">
           
-          <div class="tech-info-panel" id="tech-info-panel">
-            <div class="tech-info-content">
-              <h3 id="tech-info-title">SISTEMA EN ESPERA</h3>
-              <p id="tech-info-desc">Pulsa NEXT para ver más información sobre <br>las tecnologías que utilizo.</p>
+          <!-- Bloque de Proyectos -->
+          <div class="projects-block">
+            <h2 class="hollow-title big-hollow text-center">PROYECTOS</h2>
+            <div class="panels-wrapper">
+
+              <!-- PANEL 1 -->
+              <div class="project-panel">
+                <div class="folder-spine">
+                  <div class="folder-spine-number">01</div>
+                  <span class="folder-spine-title">COM_GAMES</span>
+                </div>
+                <div class="panel-content">
+                  <div class="panel-image iframe-thumbnail">
+                    <iframe src="https://alberttery16.github.io/juegos/" tabindex="-1" title="MiniJuegos Preview"></iframe>
+                  </div>
+                  <div class="panel-overlay">
+                    <div class="panel-number">01</div>
+                    <h3 class="panel-title">COM_GAMES</h3>
+                    <p class="panel-desc">Entorno neón inmersivo y lógica interactiva de entretenimiento clásico.</p>
+                    <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn">ACCEDER <i
+                        class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 2 -->
+              <div class="project-panel">
+                <div class="folder-spine">
+                  <div class="folder-spine-number">02</div>
+                  <span class="folder-spine-title">COM_STORE</span>
+                </div>
+                <div class="panel-content">
+                  <div class="panel-image iframe-thumbnail">
+                    <iframe src="https://alberttery16.github.io/Tienda/" tabindex="-1" title="Tienda Preview"></iframe>
+                  </div>
+                  <div class="panel-overlay">
+                    <div class="panel-number">02</div>
+                    <h3 class="panel-title">COM_STORE</h3>
+                    <p class="panel-desc">Arquitectura de menús complejos y flujo de comercio escalable.</p>
+                    <a href="https://alberttery16.github.io/Tienda/" target="_blank" class="panel-btn">ACCEDER <i
+                        class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 3 -->
+              <div class="project-panel">
+                <div class="folder-spine">
+                  <div class="folder-spine-number">03</div>
+                  <span class="folder-spine-title">COM_IDEAS</span>
+                </div>
+                <div class="panel-content">
+                  <div class="panel-image iframe-thumbnail">
+                    <iframe src="ideas.html" tabindex="-1" title="Ideas Preview"></iframe>
+                  </div>
+                  <div class="panel-overlay">
+                    <div class="panel-number">03</div>
+                    <h3 class="panel-title">COM_IDEAS</h3>
+                    <p class="panel-desc">Dashboard hiper-limpio para gestión y almacenamiento de ideas.</p>
+                    <a href="ideas.html" target="_blank" class="panel-btn">ACCEDER <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 4 (Efectos) -->
+              <div class="project-panel">
+                <div class="folder-spine">
+                  <div class="folder-spine-number">04</div>
+                  <span class="folder-spine-title">VFX_MATRIX</span>
+                </div>
+                <div class="panel-content">
+                  <div class="panel-image iframe-thumbnail">
+                    <iframe src="efectos/matrix.html" tabindex="-1" title="Matrix Preview"></iframe>
+                  </div>
+                  <div class="panel-overlay">
+                    <div class="panel-number">04</div>
+                    <h3 class="panel-title">VFX_MATRIX</h3>
+                    <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
+                    <a href="efectos/matrix.html" target="_blank" class="panel-btn">ACCEDER <i
+                        class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 5 (Efectos) -->
+              <div class="project-panel">
+                <div class="folder-spine">
+                  <div class="folder-spine-number">05</div>
+                  <span class="folder-spine-title">VFX_CYBERPUNK</span>
+                </div>
+                <div class="panel-content">
+                  <div class="panel-image iframe-thumbnail">
+                    <iframe src="efectos/cyberpunk.html" tabindex="-1" title="Cyberpunk Preview"></iframe>
+                  </div>
+                  <div class="panel-overlay">
+                    <div class="panel-number">05</div>
+                    <h3 class="panel-title">VFX_CYBERPUNK</h3>
+                    <p class="panel-desc">Arte generativo de sombras de neón inspirado en distopías Sci-Fi.</p>
+                    <a href="efectos/cyberpunk.html" target="_blank" class="panel-btn">ACCEDER <i
+                        class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 6 (Efectos) -->
+              <div class="project-panel">
+                <div class="folder-spine">
+                  <div class="folder-spine-number">06</div>
+                  <span class="folder-spine-title">VFX_PRISMA</span>
+                </div>
+                <div class="panel-content">
+                  <div class="panel-image iframe-thumbnail">
+                    <iframe src="efectos/prisma.html" tabindex="-1" title="Prisma Preview"></iframe>
+                  </div>
+                  <div class="panel-overlay">
+                    <div class="panel-number">06</div>
+                    <h3 class="panel-title">VFX_PRISMA</h3>
+                    <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
+                    <a href="efectos/prisma.html" target="_blank" class="panel-btn">ACCEDER <i
+                        class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /panels-wrapper -->
+          </div><!-- /projects-block -->
+
+          <!-- Bloque de Tech Stack -->
+          <div class="tech-block">
+            <h2 class="hollow-title small-hollow text-center">TECH_STACK</h2>
+            <div class="revolver-wrapper">
+              <div class="tech-container">
+                <div class="tech-orbit" id="tech-orbit">
+                  <div class="tech-node interactive-node" data-tooltip="CORE PHP: Laravel - Symfony"><i class="fab fa-laravel"></i></div>
+                  <div class="tech-node interactive-node" data-tooltip="CORE JS: JavaScript (ES6+) - JAVA - TypeScript"><i class="fab fa-js-square"></i></div>
+                  <div class="tech-node interactive-node" data-tooltip="ANIMATIONS: GSAP 3"><i class="fas fa-magic"></i></div>
+                  <div class="tech-node interactive-node" data-tooltip="SECURITY: OWASP Protocols"><i class="fas fa-user-shield"></i></div>
+                  <div class="tech-node interactive-node" data-tooltip="SYSTEMS: Linux/Bash - Windows"><i class="fab fa-linux"></i></div>
+                  <div class="tech-node interactive-node" data-tooltip="DATABASES: SQL/NoSQL"><i class="fas fa-database"></i></div>
+                </div>
+                
+                <button class="spin-trigger-btn" id="spin-btn">NEXT</button>
+              </div>
+              
+              <div class="tech-info-panel" id="tech-info-panel">
+                <div class="tech-info-content">
+                  <h3 id="tech-info-title">SISTEMA EN ESPERA</h3>
+                  <p id="tech-info-desc">Pulsa NEXT para ver más información sobre <br>las tecnologías que utilizo.</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </div><!-- /tech-block -->
+
+        </div><!-- /showcase-container -->
       </section>
 
-      <!-- SERVICIOS B2B -->
+      <!-- Servicios -->
       <section class="b2b-services-section">
         <h2 class="hollow-title small-hollow text-center">CORP_MODULES</h2>
         <div class="bento-grid">
@@ -237,7 +316,7 @@
         </div>
       </section>
 
-      <!-- NEURAL DECRYPT MINIGAME -->
+      <!-- Minijuego -->
       <section class="minigame-section">
         <h2 class="hollow-title small-hollow text-center">NEURAL_DECRYPT</h2>
         <div class="minigame-container" id="minigame-container">
@@ -270,7 +349,7 @@
         </div>
       </section>
       
-      <!-- SECURE B2B CONTACT -->
+      <!-- Contacto -->
       <section class="secure-contact-section">
         <h2 class="hollow-title small-hollow text-center">SECURE_COMMS</h2>
         <div class="terminal-form-wrapper">
@@ -300,7 +379,7 @@
         </div>
       </section>
 
-      <!-- FOOTER -->
+      <!-- Footer -->
       <footer class="cyber-footer">
         <h2 class="hollow-title small-hollow">SOCIAL_LINKS</h2>
         <div class="social-grid">
