@@ -32,7 +32,7 @@
 
   <!-- Consola Dev -->
   <div class="dev-console" id="dev-console">
-    <div id="dev-output">SISTEMA CIBERNÉTICO INICIADO. Escribe 'help' para ver comandos.</div>
+    <div id="dev-output" data-i18n="dev_console">SISTEMA CIBERNÉTICO INICIADO. Escribe 'help' para ver comandos.</div>
     <div class="dev-input-wrapper">
       <span>></span>
       <input type="text" id="dev-input" placeholder="Comando...">
@@ -43,48 +43,63 @@
   <div class="loader">
     <div class="loader-content">
       <div class="loader-counter">0%</div>
-      <div class="loader-text" data-target="SYSTEM BOOT...">SYS_INITIALIZING</div>
+      <div class="loader-text" data-target="SYSTEM BOOT..." data-i18n="loader_text">SYS_INITIALIZING</div>
     </div>
   </div>
 
-  <!-- Efectos Visuales Globales -->
-  <div class="noise-overlay"></div>
-  <div class="dynamic-bg">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
+  <!-- Navegación Premium -->
+  <header class="main-nav">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-text">AT <span class="blink">_</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#about" class="nav-link" data-i18n="nav_about">[ PERFIL ]</a>
+        <a href="#showcase" class="nav-link" data-i18n="nav_projects">[ PROYECTOS ]</a>
+        <a href="#services" class="nav-link" data-i18n="nav_services">[ SERVICIOS ]</a>
+        <a href="#contact" class="nav-link" data-i18n="nav_contact">[ CONTACTO ]</a>
+      </nav>
+      <div class="lang-switch">
+        <button id="lang-btn" class="nav-link">[ EN ]</button>
+      </div>
+    </div>
+  </header>
 
   <main id="smooth-wrapper">
     <div id="smooth-content">
 
       <!-- Hero -->
-      <section class="hero-3d interactive">
+      <section class="hero-3d interactive" id="hero">
         <video autoplay muted loop playsinline class="hero-video-bg">
           <source src="video.mp4" type="video/mp4">
         </video>
         <div class="grid-floor"></div>
         <div class="hero-content">
-          <h1 class="hero-title glitch-mega">ALBERTTERY16</h1>
-          <p class="hero-subtitle">ARCHITECT // DEVELOPER // CYBERSECURITY // GAMER</p>
+          <h1 class="hero-title glitch-mega" data-i18n="hero_title">ALBERTTERY16</h1>
+          <p class="hero-subtitle" data-i18n="hero_subtitle">ARCHITECT // DEVELOPER // CYBERSECURITY // GAMER</p>
+        </div>
+        <div class="scroll-indicator">
+          <div class="mouse">
+            <div class="wheel"></div>
+          </div>
+          <span data-i18n="scroll_text">SCROLL_TO_DESCEND</span>
         </div>
       </section>
 
       <!-- Sobre mí -->
-      <section class="about-section">
+      <section class="about-section" id="about">
         <div class="about-container">
           
           <!-- Columna Texto -->
           <div class="about-text">
-            <h2 class="hollow-title">INITIALIZE_PROFILE</h2>
-            <p class="reveal-text">
-              Hola, soy Albert y este es mi portfolio interactivo. <br>
-              Me considero un desarrollador apasionado por crear experiencias digitales que desafían los estándares.<br>
-              No construyo simples páginas web, desarrollo inmersiones tecnológicas diseñadas para impresionar
-              a cualquiera que entre en una de mis webs (contiene Easter Eggs 👀).
+            <h2 class="hollow-title" data-i18n="about_title">INITIALIZE_PROFILE</h2>
+            <p class="reveal-text" data-i18n="about_p">
+              Hola, soy Albert y este es mi portfolio. <br>Me considero un desarrollador apasionado por crear experiencias digitales que desafían los estándares.
+              No construyo simples páginas web, sino inmersiones tecnológicas diseñadas para impresionar
+              a cualquiera que entre en una de mis webs.
             </p>
             <div class="secret-hint" title="SYS_OVERRIDE">SEQ: ↑ ↑ ↓ ↓ ← → ← → B A</div>
-            <button class="hologram-trigger cv-large" id="cv-trigger">[ EXTRAER_CV ]</button>
+            <button class="hologram-trigger cv-large" id="cv-trigger" data-i18n="cv_btn">[ EXTRAER_CV ]</button>
           </div>
 
           <!-- Columna Carrusel -->
@@ -92,18 +107,18 @@
             <div class="apple-carousel" id="apple-carousel">
                <div class="apple-slide glossy">
                  <i class="fas fa-mobile-alt"></i>
-                 <h3>UI / UX Nativa</h3>
-                 <p>Interfaces fluidas que responden al toque como si fueran cristal real.</p>
+                  <h3 data-i18n="slide1_h">UI / UX Nativa</h3>
+                  <p data-i18n="slide1_p">Interfaces fluidas que responden al toque como si fueran cristal real.</p>
                </div>
                <div class="apple-slide glossy">
                  <i class="fas fa-fingerprint"></i>
-                 <h3>Ciberseguridad</h3>
-                 <p>Arquitectura sólida y blindada ante cualquier amenaza externa.</p>
+                  <h3 data-i18n="slide2_h">Ciberseguridad</h3>
+                  <p data-i18n="slide2_p">Arquitectura sólida y blindada ante cualquier amenaza externa.</p>
                </div>
                <div class="apple-slide glossy">
                  <i class="fas fa-tachometer-alt"></i>
-                 <h3>Ultra Rendimiento</h3>
-                 <p>Optimizaciones a nivel de milisegundo para retención extrema.</p>
+                  <h3 data-i18n="slide3_h">Ultra Rendimiento</h3>
+                  <p data-i18n="slide3_p">Optimizaciones a nivel de milisegundo para retención extrema.</p>
                </div>
             </div>
             <div class="carousel-dots" id="carousel-dots">
@@ -113,28 +128,16 @@
             </div>
           </div>
 
-          <!-- Holograma CV -->
-          <div class="hologram-overlay" id="hologram-overlay">
-            <div class="hologram-card" id="hologram-card">
-              <div class="hologram-glare"></div>
-              <h3>ALBERT EDUARDO GRIGORE STEFAN</h3>
-              <p>Desarrollador Full-Stack</p>
-              <br>
-              <p>> Bachillerato Científico</p>
-              <p>> Grado Superior DAW</p>
-            </div>
-            <button class="close-hologram" id="close-hologram">CERRAR</button>
-          </div>
         </div>
       </section>
 
       <!-- Proyectos y Tech Stack -->
-      <section class="showcase-section">
+      <section class="showcase-section" id="showcase">
         <div class="showcase-container">
           
           <!-- Bloque de Proyectos -->
           <div class="projects-block">
-            <h2 class="hollow-title big-hollow text-center">PROYECTOS</h2>
+            <h2 class="hollow-title big-hollow text-center" data-i18n="projects_title">PROYECTOS</h2>
             <div class="panels-wrapper">
 
               <!-- PANEL 1 -->
@@ -149,9 +152,9 @@
                   </div>
                   <div class="panel-overlay">
                     <div class="panel-number">01</div>
-                    <h3 class="panel-title">COM_GAMES</h3>
-                    <p class="panel-desc">Entorno neón inmersivo y lógica interactiva de entretenimiento clásico.</p>
-                    <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn">ACCEDER <i
+                    <h3 class="panel-title" data-i18n="p1_title">COM_GAMES</h3>
+                    <p class="panel-desc" data-i18n="p1_desc">Entorno neón inmersivo y lógica interactiva de entretenimiento clásico.</p>
+                    <a href="https://alberttery16.github.io/juegos/" target="_blank" class="panel-btn" data-i18n="btn_access">ACCEDER <i
                         class="fas fa-arrow-right"></i></a>
                   </div>
                 </div>
@@ -169,8 +172,8 @@
                   </div>
                   <div class="panel-overlay">
                     <div class="panel-number">02</div>
-                    <h3 class="panel-title">COM_STORE</h3>
-                    <p class="panel-desc">Arquitectura de menús complejos y flujo de comercio escalable.</p>
+                    <h3 class="panel-title" data-i18n="p2_title">COM_STORE</h3>
+                    <p class="panel-desc" data-i18n="p2_desc">Arquitectura de menús complejos y flujo de comercio escalable.</p>
                     <a href="https://alberttery16.github.io/Tienda/" target="_blank" class="panel-btn">ACCEDER <i
                         class="fas fa-arrow-right"></i></a>
                   </div>
@@ -189,9 +192,9 @@
                   </div>
                   <div class="panel-overlay">
                     <div class="panel-number">03</div>
-                    <h3 class="panel-title">COM_IDEAS</h3>
-                    <p class="panel-desc">Dashboard hiper-limpio para gestión y almacenamiento de ideas.</p>
-                    <a href="ideas.html" target="_blank" class="panel-btn">ACCEDER <i class="fas fa-arrow-right"></i></a>
+                    <h3 class="panel-title" data-i18n="p3_title">COM_IDEAS</h3>
+                    <p class="panel-desc" data-i18n="p3_desc">Dashboard hiper-limpio para gestión y almacenamiento de ideas.</p>
+                    <a href="ideas.html" target="_blank" class="panel-btn" data-i18n="btn_access">ACCEDER <i class="fas fa-arrow-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -208,8 +211,8 @@
                   </div>
                   <div class="panel-overlay">
                     <div class="panel-number">04</div>
-                    <h3 class="panel-title">VFX_MATRIX</h3>
-                    <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
+                    <h3 class="panel-title" data-i18n="p4_title">VFX_MATRIX</h3>
+                    <p class="panel-desc" data-i18n="p4_desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
                     <a href="efectos/matrix.html" target="_blank" class="panel-btn">ACCEDER <i
                         class="fas fa-arrow-right"></i></a>
                   </div>
@@ -228,8 +231,8 @@
                   </div>
                   <div class="panel-overlay">
                     <div class="panel-number">05</div>
-                    <h3 class="panel-title">VFX_CYBERPUNK</h3>
-                    <p class="panel-desc">Arte generativo de sombras de neón inspirado en distopías Sci-Fi.</p>
+                    <h3 class="panel-title" data-i18n="p5_title">VFX_CYBERPUNK</h3>
+                    <p class="panel-desc" data-i18n="p5_desc">Arte generativo de sombras de neón inspirado en distopías Sci-Fi.</p>
                     <a href="efectos/cyberpunk.html" target="_blank" class="panel-btn">ACCEDER <i
                         class="fas fa-arrow-right"></i></a>
                   </div>
@@ -248,9 +251,9 @@
                   </div>
                   <div class="panel-overlay">
                     <div class="panel-number">06</div>
-                    <h3 class="panel-title">VFX_PRISMA</h3>
-                    <p class="panel-desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
-                    <a href="efectos/prisma.html" target="_blank" class="panel-btn">ACCEDER <i
+                    <h3 class="panel-title" data-i18n="p6_title">VFX_PRISMA</h3>
+                    <p class="panel-desc" data-i18n="p6_desc">Simulación de lluvia digital en tiempo real renderizada mediante canvas.</p>
+                    <a href="efectos/prisma.html" target="_blank" class="panel-btn" data-i18n="btn_access">ACCEDER <i
                         class="fas fa-arrow-right"></i></a>
                   </div>
                 </div>
@@ -261,7 +264,7 @@
 
           <!-- Bloque de Tech Stack -->
           <div class="tech-block">
-            <h2 class="hollow-title small-hollow text-center">TECH_STACK</h2>
+            <h2 class="hollow-title small-hollow text-center" data-i18n="tech_title">TECH_STACK</h2>
             <div class="revolver-wrapper">
               <div class="tech-container">
                 <div class="tech-orbit" id="tech-orbit">
@@ -278,8 +281,8 @@
               
               <div class="tech-info-panel" id="tech-info-panel">
                 <div class="tech-info-content">
-                  <h3 id="tech-info-title">SISTEMA EN ESPERA</h3>
-                  <p id="tech-info-desc">Pulsa NEXT para ver más información sobre <br>las tecnologías que utilizo.</p>
+                  <h3 id="tech-info-title" data-i18n="tech_status">SISTEMA EN ESPERA</h3>
+                  <p id="tech-info-desc" data-i18n="tech_desc">Pulsa NEXT para ver más información sobre <br>las tecnologías que utilizo.</p>
                 </div>
               </div>
             </div>
@@ -289,43 +292,43 @@
       </section>
 
       <!-- Servicios -->
-      <section class="b2b-services-section">
-        <h2 class="hollow-title small-hollow text-center">CORP_MODULES</h2>
+      <section class="b2b-services-section" id="services">
+        <h2 class="hollow-title small-hollow text-center" data-i18n="services_title">CORP_MODULES</h2>
         <div class="bento-grid">
           <div class="bento-item bento-large">
             <div class="bento-icon"><i class="fas fa-shield-alt"></i></div>
-            <h3>CIBERSEGURIDAD B2B</h3>
-            <p>Auditorías, pentesting e integración de protocolos de seguridad impenetrables para infraestructura
+            <h3 data-i18n="s1_title">CIBERSEGURIDAD B2B</h3>
+            <p data-i18n="s1_desc">Auditorías, pentesting e integración de protocolos de seguridad impenetrables para infraestructura
               corporativa.</p>
           </div>
           <div class="bento-item">
             <div class="bento-icon"><i class="fas fa-tachometer-alt"></i></div>
-            <h3>RENDIMIENTO EXTREMO</h3>
-            <p>Refactorización y arquitectura orientada a la máxima velocidad y retención.</p>
+            <h3 data-i18n="s2_title">RENDIMIENTO EXTREMO</h3>
+            <p data-i18n="s2_desc">Refactorización y arquitectura orientada a la máxima velocidad y retención.</p>
           </div>
           <div class="bento-item">
             <div class="bento-icon"><i class="fas fa-network-wired"></i></div>
-            <h3>DASHBOARDS CORP</h3>
-            <p>Sistemas de control logística, gestión de datos e intranets seguras.</p>
+            <h3 data-i18n="s3_title">DASHBOARDS CORP</h3>
+            <p data-i18n="s3_desc">Sistemas de control logística, gestión de datos e intranets seguras.</p>
           </div>
           <div class="bento-item bento-wide">
             <div class="bento-icon"><i class="fas fa-shopping-cart"></i></div>
-            <h3>E-COMMERCE HIGH-END</h3>
-            <p>Soluciones transaccionales inmersivas y arquitecturas escalables preparadas para ultra-rendimiento.</p>
+            <h3 data-i18n="s4_title">E-COMMERCE HIGH-END</h3>
+            <p data-i18n="s4_desc">Soluciones transaccionales inmersivas y arquitecturas escalables preparadas para ultra-rendimiento.</p>
           </div>
         </div>
       </section>
 
       <!-- Minijuego -->
-      <section class="minigame-section">
-        <h2 class="hollow-title small-hollow text-center">NEURAL_DECRYPT</h2>
+      <section class="minigame-section" id="minigame">
+        <h2 class="hollow-title small-hollow text-center" data-i18n="game_title">NEURAL_DECRYPT</h2>
         <div class="minigame-container" id="minigame-container">
 
           <div class="game-area">
             <div class="game-ui">
-              <h3 class="game-status" id="game-status">SISTEMA BLOQUEADO</h3>
-              <p class="game-instructions">Memoriza e intercepta la secuencia de nodos infinitamente.</p>
-              <div class="game-score">Nivel: <span id="layer-count">0</span></div>
+              <h3 class="game-status" id="game-status" data-i18n="game_status">SISTEMA BLOQUEADO</h3>
+              <p class="game-instructions" data-i18n="game_instr">Memoriza e intercepta la secuencia de nodos infinitamente.</p>
+              <div class="game-score"><span data-i18n="game_level">Nivel</span>: <span id="layer-count">0</span></div>
             </div>
 
             <div class="simon-game" id="simon-game">
@@ -335,12 +338,12 @@
                 <div class="simon-node" data-color="3" id="node-3"></div>
                 <div class="simon-node" data-color="4" id="node-4"></div>
               </div>
-              <button class="start-hack-btn" id="start-hack-btn">INICIAR</button>
+              <button class="start-hack-btn" id="start-hack-btn" data-i18n="game_btn">INICIAR</button>
             </div>
           </div>
 
           <div class="leaderboard-area">
-            <div class="leaderboard-header">GLOBAL_RANKING</div>
+            <div class="leaderboard-header" data-i18n="game_rank">GLOBAL_RANKING</div>
             <ul class="leaderboard-list" id="leaderboard-list">
               <!-- JS Injected -->
             </ul>
@@ -350,8 +353,8 @@
       </section>
       
       <!-- Contacto -->
-      <section class="secure-contact-section">
-        <h2 class="hollow-title small-hollow text-center">SECURE_COMMS</h2>
+      <section class="secure-contact-section" id="contact">
+        <h2 class="hollow-title small-hollow text-center" data-i18n="contact_title">SECURE_COMMS</h2>
         <div class="terminal-form-wrapper">
           <div class="terminal-header">
             <div class="term-btn red"></div>
@@ -360,20 +363,20 @@
             <span class="term-title">root@alberttery16:~ /contact_protocol</span>
           </div>
           <form id="b2b-contact-form" class="terminal-body" onsubmit="event.preventDefault(); initiateSecureComms();">
-            <p class="term-prompt">> INICIAR_MENSAJE</p>
+            <p class="term-prompt" data-i18n="form_prompt">> INICIAR_MENSAJE</p>
             <div class="input-group">
-              <label for="corp_name">Corp_Name:</label>
-              <input type="text" id="corp_name" name="corp_name" required placeholder="Nombre de empresa...">
+              <label for="corp_name" data-i18n="form_name">Corp_Name:</label>
+              <input type="text" id="corp_name" name="corp_name" required placeholder="Nombre de empresa..." data-i18n-ph="form_name_ph">
             </div>
             <div class="input-group">
-              <label for="corp_email">Target_Email:</label>
-              <input type="email" id="corp_email" name="corp_email" required placeholder="email@empresa.com">
+              <label for="corp_email" data-i18n="form_email">Target_Email:</label>
+              <input type="email" id="corp_email" name="corp_email" required placeholder="email@empresa.com" data-i18n-ph="form_email_ph">
             </div>
             <div class="input-group">
-              <label for="corp_req">Payload_Data:</label>
-              <textarea id="corp_req" name="corp_req" rows="3" required placeholder="Describe el objetivo estratégico..."></textarea>
+              <label for="corp_req" data-i18n="form_payload">Payload_Data:</label>
+              <textarea id="corp_req" name="corp_req" rows="3" required placeholder="Describe el objetivo estratégico..." data-i18n-ph="form_payload_ph"></textarea>
             </div>
-            <button type="submit" class="hack-submit-btn">[ ENVIAR_DATOS ]</button>
+            <button type="submit" class="hack-submit-btn" data-i18n="form_btn">[ ENVIAR_DATOS ]</button>
             <div id="form-status" class="form-status-msg"></div>
           </form>
         </div>
@@ -381,7 +384,7 @@
 
       <!-- Footer -->
       <footer class="cyber-footer">
-        <h2 class="hollow-title small-hollow">SOCIAL_LINKS</h2>
+        <h2 class="hollow-title small-hollow" data-i18n="footer_social">SOCIAL_LINKS</h2>
         <div class="social-grid">
           <a href="https://instagram.com/alberttery16" target="_blank" class="social-btn">
             <span class="social-bg"></span>
@@ -397,12 +400,25 @@
           </a>
         </div>
         <div class="footer-bar">
-          <p>SISTEMA Y PORTFOLIO POR ALBERTTERY16. TODOS LOS DERECHOS RESERVADOS.</p>
+          <p data-i18n="footer_rights">SISTEMA Y PORTFOLIO POR ALBERTTERY16. TODOS LOS DERECHOS RESERVADOS.</p>
         </div>
       </footer>
 
     </div><!-- /smooth-content -->
   </main><!-- /smooth-wrapper -->
+
+  <!-- Holograma CV -->
+  <div class="hologram-overlay" id="hologram-overlay">
+    <div class="hologram-card" id="hologram-card">
+      <div class="hologram-glare"></div>
+      <h3>ALBERT EDUARDO GRIGORE STEFAN</h3>
+      <p data-i18n="cv_tag">Desarrollador Full-Stack</p>
+      <br>
+      <p>> <span data-i18n="cv_edu1">Bachillerato Científico</span></p>
+      <p>> <span data-i18n="cv_edu2">Grado Superior DAW</span></p>
+    </div>
+    <button class="close-hologram" id="close-hologram" data-i18n="cv_close">CERRAR</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
